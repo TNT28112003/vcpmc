@@ -1,0 +1,45 @@
+export default {
+  'gift.illustration': 'Hình ảnh',
+  'gift.name': 'Tên quà tặng',
+  'gift.names': 'Quà tặng',
+  'gift.unit': 'Đơn vị tính',
+  'gift.description': 'Mô tả',
+  'gift.numberOfDistributed': 'Số quà đã phát',
+  'gift.action': 'Hành động',
+  'gift.update': 'Sửa quà tặng',
+  'gift.create': 'Thêm quà tặng mới',
+  'gift.content.delete': 'Bạn có muốn xóa quà tặng này',
+  'gift.placeholder.description': 'Vui lòng nhập mô tả',
+  'gift.info': 'Xem thông tin quà tặng',
+  'gift.totalAmountWon': 'Tổng số lượng đã trúng thưởng:',
+  'gift.totalAmountDistributed': 'Tổng số lượng đã phát:',
+  'gift.totalExpired': 'Tổng số lượng hết hạn:',
+  'gift.form.name': 'Tên quà tặng:',
+  'gift.form.unit': 'Đơn vị tính:',
+  'gift.form.description': 'Mô tả:',
+  'gift.form.imgTitle': 'Hình ảnh quà tặng:',
+  'gift.form.tableTitle': 'Lịch sử trúng thưởng',
+  'gift.form.device': 'Máy tái chế',
+  'gift.form.status': 'Trạng thái sử dụng',
+
+  'gift.winningTime': 'Thời gian trúng thưởng',
+  'gift.qrCode': 'Mã QR code',
+  'gift.recyclingMachine': 'Máy tái chế',
+  'gift.location': 'Địa điểm',
+  'gift.qrCodeUsageStatus': 'Trạng thái sử dụng',
+  'gift.qrCodeUsageTime': 'Thời gian sử dụng',
+  'gift.prizeGiver': 'Người phát quà',
+
+  'gift.device.silverBot': 'Robot tương tác',
+  'gift.device.deliveryBox': 'Robot vận chuyển',
+  'gift.device.recyclingMachine': 'Máy tái chế',
+
+  'gift.status.used': 'Đã sử dụng',
+  'gift.status.unused': 'Chưa sử dụng',
+  'gift.status.expired': 'Hết hạn',
+
+  'gift.type.param':
+    '{status,select, 1 {Robot tương tác} 2 {Robot vận chuyển} 3 {Máy tái chế} other {Không xác định}}',
+  'gift.status.param':
+    '{status,select, 1 {Đã sử dụng} 2 {Chưa sử dụng} 3 {Hết hạn} other {Không xác định}}',
+};

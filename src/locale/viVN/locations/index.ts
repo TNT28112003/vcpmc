@@ -1,0 +1,47 @@
+export default {
+  'locations.': '',
+  'locations.content.delete': 'Bạn có xác nhận xóa địa điểm này?',
+  'locations.heading.left.title': 'Tổng số địa điểm đã tạo',
+  'locations.heading.right.title': 'Tổng số địa điểm đang diễn ra chiến dịch',
+  'locations.heading.left.text': 'địa điểm',
+
+  'locations.name': 'Quản lý địa điểm',
+  'locations.table.name': 'Địa điểm',
+  'locations.table.areas': 'Khu vực',
+  'locations.table.province': 'Thành phố/Tỉnh',
+  'locations.table.district': 'Quận/Huyện',
+  'locations.table.address': 'Địa chỉ',
+  'locations.table.createdAt': 'Ngày thêm',
+  'locations.table.numberOfDevicesOperation': 'Số thiết bị đang vận hành',
+  'locations.table.action': 'Hành động',
+
+  'locations.information': 'Thông tin địa điểm',
+  'locations.update': 'Cập nhật địa điểm',
+  'locations.create': 'Thêm địa điểm mới',
+
+  'locations.modal.name': 'Tên địa điểm',
+  'locations.modal.provinceCode': 'Tỉnh/Thành phố',
+  'locations.modal.provinceCode.placeholder': 'Vui lòng nhập Tỉnh/Thành phố',
+  'locations.modal.districtCode': 'Quận/Huyện',
+  'locations.modal.districtCode.placeholder': 'Vui lòng nhập Quận/Huyện',
+  'locations.modal.communeCode': 'Phường/Xã',
+  'locations.modal.communeCode.placeholder': 'Vui lòng nhập Phường/Xã',
+  'locations.modal.address': 'Địa chỉ',
+  'locations.modal.long': 'Kinh độ',
+  'locations.modal.lat': 'Vĩ độ',
+  'locations.modal.description': 'Mô tả',
+  'locations.modal.description.placeholder': 'Vui lòng nhập Mô tả',
+
+  'locations.pageInfo.name': 'Quản lý địa điểm tổ chức',
+  'pageInfo.title.1': 'Thông tin địa điểm tổ chức',
+  'pageInfo.title.2': 'Danh sách thiết bị đang được vận hành',
+  'pageInfo.table.code': 'Mã thiết bị',
+  'pageInfo.table.name': 'Tên thiết bị',
+  'pageInfo.table.type': 'Loại thiết bị',
+  'pageInfo.table.createdAt': 'Ngày thêm vào địa điểm',
+  'pageInfo.table.activeStatus': 'Trạng thái hiện tại',
+  'pageInfo.table.type.id':
+    '{status, select, 1 {Robot tương tác} 2 {Robot vận chuyển} 3 {Máy tái chế} other {--}}',
+  'pageInfo.table.activeStatus.id':
+    '{status, select, 1 {Trạng thái trực tuyến} 2 {Trạng thái ngoại tuyến} other {--}}',
+};

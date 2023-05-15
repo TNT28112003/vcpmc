@@ -1,0 +1,47 @@
+export default {
+  'locations.': '',
+  'locations.content.delete': 'Do you confirm deletion of this location?',
+  'locations.heading.left.title': 'Total places created',
+  'locations.heading.right.title': 'Total number of locations where the campaign is taking place',
+  'locations.heading.left.text': 'location',
+
+  'locations.name': 'Location management',
+  'locations.table.name': 'Location',
+  'locations.table.areas': 'Area',
+  'locations.table.province': 'City/Province',
+  'locations.table.district': 'District',
+  'locations.table.address': 'Address',
+  'locations.table.createdAt': 'Date created',
+  'locations.table.numberOfDevicesOperation': 'Number of devices in operation',
+  'locations.table.action': 'Action',
+
+  'locations.information': 'Location Information',
+  'locations.update': 'Location update',
+  'locations.create': 'Add new location',
+
+  'locations.modal.name': 'Location name',
+  'locations.modal.provinceCode': 'Province/City',
+  'locations.modal.provinceCode.placeholder': 'Please enter Province/City',
+  'locations.modal.districtCode': 'District',
+  'locations.modal.districtCode.placeholder': 'Please enter County/District',
+  'locations.modal.communeCode': 'Wards',
+  'locations.modal.communeCode.placeholder': 'Please enter Ward/Commune',
+  'locations.modal.address': 'Address',
+  'locations.modal.long': 'Longitude',
+  'locations.modal.lat': 'Latitude',
+  'locations.modal.description': 'Describe',
+  'locations.modal.description.placeholder': 'Please enter Description',
+
+  'locations.pageInfo.name': 'Manage the venue',
+  'pageInfo.title.1': 'Information about the venue',
+  'pageInfo.title.2': 'List of devices in operation',
+  'pageInfo.table.code': 'Device code',
+  'pageInfo.table.name': 'Device name',
+  'pageInfo.table.type': 'type of device',
+  'pageInfo.table.createdAt': 'Date added to the location',
+  'pageInfo.table.activeStatus': 'Current status',
+  'pageInfo.table.type.id':
+    '{status, select, 1 {Interactive Robots} 2 {Transport robot} 3 {Recycling machine} other {--}}',
+  'pageInfo.table.activeStatus.id':
+    '{status, select, 1 {Online Status} 2 {Offline Status} other {--}}',
+};
