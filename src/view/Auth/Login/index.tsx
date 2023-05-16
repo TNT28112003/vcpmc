@@ -36,7 +36,7 @@ const Login = () => {
         setErrorStatus('');
         alert('Login successful');
         setTimeout(() => {
-          navigate('/');
+          navigate('/profile');
         }, 300);
       })
       .catch(err => {

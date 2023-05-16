@@ -9,20 +9,19 @@ import utc from 'dayjs/plugin/utc';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import weekYear from 'dayjs/plugin/weekYear';
-import React, { useEffect, useMemo } from 'react';
+import React, { memo, Suspense, useEffect, useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import lodash from 'lodash';
 
 import locale from '@locale/index';
 import { LanguageSelector } from '@modules/setting/settingStore';
 
 import ThemeContext, { ThemeColors } from '@shared/hook/ThemeContext';
-import { auth } from 'src/firebase/firebase.config';
-import { PublicPage } from '@routers/PublicPage';
-import Login from './Auth/Login';
-import { PrivatePage } from '@routers/PrivatePage';
-import DefaultLayout from '@layout/index'
+import { TokenSelector } from '@modules/authentication/profileStore';
+import PublicPage from '@routers/component/PublicPage';
+import PrivatePage from '@routers/component/PrivatePage';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
@@ -48,7 +47,24 @@ export const initStyle: ThemeColors = {
   colorErrorBg: '#ff4d4f',
 };
 
+const MainView = memo(({ statusLogin }: { statusLogin: boolean }) => {
+  return (
+    <>
+      {statusLogin ? (
+        <Suspense fallback={<></>}>
+          <PrivatePage />
+        </Suspense>
+      ) : (
+        <Suspense fallback={<></>}>
+          <PublicPage />
+        </Suspense>
+      )}
+    </>
+  );
+});
+
 const App: React.FC = () => {
+  const { token } = useSelector(TokenSelector);
   const history = useNavigate();
   const { language } = useSelector(LanguageSelector);
 
@@ -56,35 +72,16 @@ const App: React.FC = () => {
     return locale[language];
   }, [language]);
 
-  // useEffect(() => {
-  //   if (auth.currentUser === null) {
-  //     history('/login');
-  //   }
-  // });
+  useEffect(() => {
+    if (!token) {
+      history('/login');
+    }
+  }, [token]);
 
   return (
     <IntlProvider locale={language} messages={memoLangData}>
       <ThemeContext token={initStyle}>
-        <Routes>
-          {PublicPage.map((page, index) => {
-            const Comp = page.component;
-            return <Route key={index} path={page.path} element={<Comp />} />;
-          })}
-          {PrivatePage.map((page, index) => {
-            const Comp = page.component;
-            return (
-              <Route
-                key={index}
-                path={page.path}
-                element={
-                  <DefaultLayout>
-                    <Comp />
-                  </DefaultLayout>
-                }
-              />
-            );
-          })}
-        </Routes>
+        <MainView statusLogin={!lodash.isEmpty(token)} />
       </ThemeContext>
     </IntlProvider>
   );

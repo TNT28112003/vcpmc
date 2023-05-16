@@ -1,25 +1,19 @@
 import store from '@core/store/redux';
-import UserEntity from '@modules/user/entity';
-import profileStore, { setToken } from './profileStore';
+import { removeProfile, setToken } from './profileStore';
 import authenticationRepository, { ILoginDTO } from './repository';
 
 const authenticationPresenter = { ...authenticationRepository };
 
 authenticationPresenter.login = async (payload: ILoginDTO, remember = false) => {
-  const token = await authenticationRepository.login(payload);
-  store.dispatch(
-    setToken({ token: token.accessToken, refreshToken: token.refreshToken, remember }),
-  );
-  return token;
+  const res = await authenticationRepository.login(payload);
+  store.dispatch(setToken({ token: res?.user?.accessToken, remember }));
+  return res?.user?.accessToken;
 };
 
-authenticationPresenter.getProfile = () => {
-  return authenticationRepository.getProfile().then((user: UserEntity) => {
-    store.dispatch(
-      profileStore.actions.fetchProfile({ user, listPermissionCode: user.permissions }),
-    );
-    return Promise.resolve(user);
-  });
+authenticationPresenter.logout = async () => {
+  const res = await authenticationRepository.logout();
+  store.dispatch(removeProfile());
+  return res;
 };
 
 export default authenticationPresenter;

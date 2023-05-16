@@ -10,9 +10,7 @@ interface IStore {
   listPermissionCode?: Array<string>;
 }
 export const removeProfile = createAction('authentication/removeProfile');
-export const setToken = createAction<{ token: any; refreshToken: any; remember?: boolean }>(
-  'authentication/setToken',
-);
+export const setToken = createAction<{ token: any; remember?: boolean }>('authentication/setToken');
 
 interface IStore {
   statusLogin?: boolean;
@@ -92,11 +90,17 @@ const profileStore = createSlice({
   },
 });
 
+interface IToken {
+  token: string;
+  status: boolean;
+}
 
-export const TokenSelector: Selector<RootState, string> = state => {
-  return state.profile.token || '';
+export const TokenSelector: Selector<RootState, IToken> = state => {
+  return {
+    token: state.profile.token || '',
+    status: state.profile.statusLogin || false,
+  };
 };
-
 interface IUser {
   user?: UserEntity;
   status: boolean;

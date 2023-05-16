@@ -1,4 +1,14 @@
-import { PrivatePage } from './PrivatePage';
-import { PublicPage } from './PublicPage';
+import Loading from '@shared/components/Loading';
 
-export { PrivatePage, PublicPage };
+import LoadableRouter from './loadableRouter';
+import { privatePage, publicPage } from './mainRouter';
+
+export const privateRouter = new LoadableRouter({
+  loading: Loading,
+  routers: privatePage,
+}).routers;
+
+export const publicRouter = new LoadableRouter({
+  loading: Loading,
+  routers: publicPage,
+}).routers;

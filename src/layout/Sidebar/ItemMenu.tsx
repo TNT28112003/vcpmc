@@ -1,118 +1,111 @@
-import { Menu, MenuProps } from 'antd';
-import lodash from 'lodash';
-import React, { useEffect, useMemo, useState } from 'react';
+import { Dropdown, Menu } from 'antd';
+import React, { memo, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { matchPath, useLocation, useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import { CheckPermissionFunc } from '@hoc/CheckPermission';
-import { RootState } from '@modules';
+import { UilEllipsisV } from '@iconscout/react-unicons';
 import { IRouter } from '@routers/interface';
+import { useAltaIntl } from '@shared/hook/useTranslate';
 
-interface IRenderMenuProps {
-  listNav: Array<IRouter>;
-  location: string;
+interface IMenu {
+  data: IRouter;
+  activePath?: string;
 }
 
-const renderMenuItem = (data: IRouter, children?: MenuProps['items']) => {
-  let path = data.path;
-  if (data.menu?.generatePath) {
-    path = data.menu.generatePath(undefined);
-  } else if (data.generatePath) {
-    path = data.generatePath(undefined);
-  }
-  return {
-    key: data.menu?.activePath || data.activePath || data.path,
-    label: (
-      <Link to={path} className="item-label">
-        <FormattedMessage id={data.name} defaultMessage={data.name} />
-      </Link>
-    ),
-    icon: data.menu?.icon || data.icon,
-    children: children,
-  };
-};
-
-const MenuCustom: React.FC<IRenderMenuProps> = (props: IRenderMenuProps) => {
-  const listNav = props.listNav.slice(1, props.listNav.length + 1);
-  const { listPermissionCode } = useSelector((state: RootState) => state.profile);
-  const [selectedKeys, setSelectedKeys] = useState<string[]>();
-  const [openKeys, setOpenKeys] = useState<string[]>();
-
-  const location = useLocation();
-
-  const [items, setItems] = useState<any>([]);
-
-  useEffect(() => {
-    if (lodash.isEmpty(listPermissionCode)) {
-      return;
-    }
-    const newItem: any = [];
-    listNav.forEach((item: IRouter) => {
-      if (
-        item.menu &&
-        !item.menu?.hideInNavbar &&
-        (!item.permissionCode ||
-          (item.permissionCode && CheckPermissionFunc(item.permissionCode, listPermissionCode)))
-      ) {
-        if (item.routes && !lodash.isEmpty(item.routes)) {
-          const children: any = [];
-          item.routes.map((route: IRouter) => {
-            if (
-              !route.menu?.hideInNavbar &&
-              (!route.permissionCode ||
-                (route.permissionCode &&
-                  CheckPermissionFunc(route.permissionCode, listPermissionCode)))
-            ) {
-              children.push(renderMenuItem(route));
-            }
-          });
-          newItem.push(renderMenuItem(item, children));
-        } else {
-          newItem.push(renderMenuItem(item));
-        }
-      }
-    });
-    setItems(newItem);
-  }, [listPermissionCode]);
-
-  useMemo(() => {
-    items.forEach((item: any) => {
-      if (item.children) {
-        item.children.forEach((it: any) => {
-          if (location.pathname.includes(it.key)) {
-            setSelectedKeys([it.key]);
-            setOpenKeys([item.key]);
-          }
-        });
-      } else {
-        if (location.pathname.includes(item.key)) {
-          setSelectedKeys([item.key]);
-        }
-      }
-    });
-  }, [location.pathname, items]);
-  
-  const handleChangeMenu = e => {
-    setSelectedKeys(e.selectedKeys);
-  };
-
-  const handleOpenChange = e => {
-    setOpenKeys(e);
-  };
+const SubItem: React.FC<IMenu> = (props: IMenu) => {
+  const item = props.data;
+  const history = useNavigate();
+  const menuRouters = item.routes?.filter(rs => rs.menu && !rs.menu?.hideInNavbar) || [];
 
   return (
-    <Menu
-      defaultOpenKeys={openKeys}
-      openKeys={openKeys}
-      defaultSelectedKeys={selectedKeys}
-      selectedKeys={selectedKeys}
-      onSelect={handleChangeMenu}
-      onOpenChange={handleOpenChange}
-      mode="inline"
-      items={items}
-    />
+    <Menu mode="vertical" className="dropdown-3dot">
+      {menuRouters.map((linkNav: IRouter, index: number) => {
+        let active = '';
+        if (linkNav.menu?.activePath != null) {
+          const activeMenu = props.activePath?.match(linkNav.menu.activePath);
+          if (activeMenu) {
+            active = 'ant-menu-item-selected';
+          }
+        }
+
+        let path = linkNav.path;
+        if (linkNav.menu?.generatePath) {
+          path = linkNav.menu.generatePath(undefined);
+        }
+        return (
+          <Menu.Item
+            className={active}
+            key={index}
+            onClick={() => {
+              history(path);
+            }}
+          >
+            <FormattedMessage id={linkNav.name} defaultMessage={linkNav.name} />
+          </Menu.Item>
+        );
+      })}
+    </Menu>
   );
 };
 
-export default MenuCustom;
+const Item: React.FC<IMenu> = (props: IMenu) => {
+  const item = props.data;
+  const location = useLocation();
+
+  const { formatMessage } = useAltaIntl();
+  const activePath = item.menu?.activePath;
+  const active = useMemo(() => {
+    if (activePath) {
+      const activeMenu = location.pathname.match(activePath);
+      return activeMenu ? 'menu-active' : '';
+    }
+    // return matchPath(location.pathname, { path: item?.path, exact: item?.exact })
+    //   ? 'menu-active'
+    //   : '';
+  }, [item.exact, activePath, item.path, location.pathname]);
+  let path = item.path;
+  if (item.menu?.generatePath) {
+    path = item.menu.generatePath(undefined);
+  }
+  const subMenu = item.routes?.filter(r => r.menu != null && !r.menu?.hideInNavbar);
+  if (subMenu && subMenu.length > 0) {
+    return (
+      <div className={`menu--component--item three-dot ${active}`} key={item.path}>
+        <Dropdown
+          overlay={<SubItem data={item} activePath={location.pathname} />}
+          placement="bottomLeft"
+          trigger={['hover']}
+        ><div className="item-label">
+            <span>
+              {item.menu?.icon && <span className="item-hover__icon">{item.menu.icon}</span>}
+              <a className="item__nav">
+                <FormattedMessage id={item.name} defaultMessage={item.name} />
+              </a>
+            </span>
+            <span className="icon-3dot">
+              <UilEllipsisV />
+            </span>
+          </div>
+        </Dropdown>
+      </div>
+    );
+  }
+
+
+
+  return (
+    <div className={`menu--component--item ${active}`}>
+      <Link to={path} className="item-label">
+        <span>
+          {item.menu?.icon && <span className="item-hover__icon">{item.menu.icon}</span>}
+          <span className="item__nav">
+            <FormattedMessage id={item.name} defaultMessage={item.name ? formatMessage(item.name) : item.name} />
+          </span>
+        </span>
+      </Link>
+    </div>
+  );
+};
+
+export default memo(Item);

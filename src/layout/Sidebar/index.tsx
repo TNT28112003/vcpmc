@@ -1,11 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { memo, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
-import { logo } from '@assets/images';
 import { UilAngleRight } from '@iconscout/react-unicons';
+import { IRouter } from '@routers/interface';
+import { privatePage } from '@routers/mainRouter';
+import CheckPermission from '@shared/hoc/CheckPermission';
+import './style.scss';
+import MenuItem from './ItemMenu';
+import authenticationPresenter from '@modules/authentication/presenter';
+import { useSingleAsync } from '@hook/useAsync';
+import { logo } from '@assets/images';
+interface IRenderMenuProps {
+  listNav: Array<IRouter>;
+  location: string;
+}
 
-import MenuCustom from './ItemMenu';
-import { PrivatePage } from '@routers/PrivatePage';
+const renderMenu: React.FC<IRenderMenuProps> = (props: IRenderMenuProps) => {
+  const listNav = props.listNav.slice(1, props.listNav.length + 1);
+  // console.log('listNav:', listNav);
+
+  return (
+    <>
+      {listNav.map((item: IRouter, index) => {
+        if (item.menu == null || item.menu?.hideInNavbar) {
+          return <React.Fragment key={index}></React.Fragment>;
+        } else if (item.permissionCode) {
+          return (
+            <CheckPermission permissionCode={item.permissionCode} key={index}>
+              <MenuItem data={item} key={index} />
+            </CheckPermission>
+          );
+        } else {
+          return <MenuItem data={item} key={index} />;
+        }
+      })}
+    </>
+  );
+};
+
+const RenderMenu = memo(renderMenu);
 
 const SiderComponent: React.FC<{
   className: string;
@@ -20,7 +53,12 @@ const SiderComponent: React.FC<{
     e.preventDefault();
     e.stopPropagation();
   };
+  const { logout } = authenticationPresenter;
+  const logoutCurrentAuth = useSingleAsync(logout);
 
+  const SignOut = () => {
+    logoutCurrentAuth.execute().then(response => console.log(response));
+  };
   useEffect(() => {
     if (className === 'sider-component') {
       setWidth(0);
@@ -30,16 +68,20 @@ const SiderComponent: React.FC<{
   }, [className]);
 
   return (
-    <div className={className} onClick={onClick} onMouseEnter={onClick}>
+    <div className={className} onClick={onClick}>
       <div className="icon">
         <UilAngleRight />
       </div>
       <div className="mask" style={{ width }}>
         <div className="logo">
           <img src={logo} alt="logo" onClick={() => navigate('/')} />
-       
         </div>
-        <MenuCustom listNav={PrivatePage} location={location.pathname} />
+        <div className="menu">
+          <RenderMenu listNav={privatePage} location={location.pathname} />
+        </div>
+        <div className="logout d-flex" onClick={SignOut}>
+          Đăng xuất
+        </div>
       </div>
     </div>
   );

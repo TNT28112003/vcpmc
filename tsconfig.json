@@ -11,10 +11,7 @@
     "module": "esnext",
     "target": "es6",
     "jsx": "react-jsx",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "plugins": [
       {
         "transform": "@formatjs/ts-transformer",
@@ -24,10 +21,7 @@
         "ast": true
       }
     ],
-    "types": [
-      "node",
-      "lodash"
-    ],
+    "types": ["node", "lodash"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -37,22 +31,8 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "TypeRoots": [
-    "node_modules/@types"
-  ],
-  "include": [
-    "./src/**/*"
-  ],
-  "lib": [
-    "es2018",
-    "dom",
-    "es6"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "dist",
-    "blueprint-templates"
-  ]
+  "TypeRoots": ["node_modules/@types"],
+  "include": ["./src/**/*"],
+  "lib": ["es2018", "dom", "es6"],
+  "exclude": ["node_modules", "build", "scripts", "dist", "blueprint-templates"]
 }
