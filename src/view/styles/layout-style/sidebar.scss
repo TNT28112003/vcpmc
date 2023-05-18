@@ -1,23 +1,24 @@
-@import './header.scss';
-
 $size-img: 10rem;
 $padding-inside: 1rem;
 
 @mixin logo {
   width: 15rem;
-  height: 100%;
+  height: 15rem;
+  object-fit: contain;
   cursor: pointer;
+  background-color: #fff;
 }
 
 .sider-component {
   display: flex;
-  width: 1.6vw;
+  width: 2vw;
   align-content: center;
   align-items: center;
   transition: width 0.2s linear;
   overflow: hidden;
   max-width: 40rem;
-  // background-color: var(--colorPrimary);
+  background-color: $bgDark;
+  border-radius: 0rem 1.6rem 1.6rem 0rem;
 
   & > .w-full {
     background-color: var(--colorPrimary);
@@ -30,8 +31,9 @@ $padding-inside: 1rem;
   .logo {
     text-align: center;
     cursor: pointer;
-
+    
     img {
+      border-radius: 50%;
       margin: 4rem auto;
       @include logo();
     }
@@ -69,10 +71,11 @@ $padding-inside: 1rem;
     overflow: hidden;
     left: 0%;
     height: 100%;
-    background-color: var(--colorPrimary);
+    background-color: $bgDark;
     transition: opacity 0.2s linear;
     opacity: 0;
     z-index: 3;
+    border-radius: 0px 24px 24px 0px;
 
     .menu-hr {
       border-bottom: 1px solid var(--colorPrimary);
@@ -88,8 +91,17 @@ $padding-inside: 1rem;
       margin: 2rem $padding-inside;
     }
     .item-label {
+      margin-top: 2.4rem;
+      margin-right: 1.2rem;
       font-weight: 500;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
+
+      & span:first-child {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
     }
 
     .ant-menu-item,
@@ -134,7 +146,7 @@ $padding-inside: 1rem;
     }
 
     .menu {
-      margin: 0 0.8rem 0 1rem;
+      // margin: 0 0.8rem 0 1rem;
 
       .item-label {
         padding: 1rem;
@@ -172,40 +184,55 @@ $padding-inside: 1rem;
         }
 
         .item-hover__icon {
-          margin-right: 2rem;
+          margin: auto !important;
 
           svg {
             transition: color 1s;
-            font-size: 3rem;
+            font-size: 3.2rem;
             width: 2.6rem;
             height: 2.6rem;
-            color: var(--colorLink);
+            color: var(--colorPrimary);
           }
         }
 
         .icon-3dot svg {
-          color: var(--colorLink);
+          color: var(--colorPrimary);
           font-size: 2.2rem;
           width: 2.2rem;
           height: 2.2rem;
         }
       }
 
-      .menu--component--item {
-        border-radius: 0.6rem;
-        margin-bottom: 3px;
+      .ant-dropdown-trigger .item-label,
+      .menu--component--item,
+      .menu--component--item .menu-active {
         transition: background-color 1s;
-      }
-
-      .menu--component--item.menu-active {
-        position: relative;
-        background: var(--colorPrimary);
-        border-radius: 0.8rem;
-        transition: background-color 1s;
+        background-color: transparent !important;
+        &:hover {
+          .item-hover__icon,
+          .icon-3dot > svg,
+          svg,
+          span,
+          a,
+          i {
+            color: var(--colorPrimary) !important;
+          }
+          
+          &::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 52px;
+            background-color: var(--colorPrimary);
+            border-radius: 3px;
+            left: 0;
+          }
+        }
 
         .item__nav {
           color: var(--colorLink);
           transition: color 1s;
+          font-size: 1.4rem;
         }
 
         .item-hover__icon svg {
@@ -215,7 +242,7 @@ $padding-inside: 1rem;
 
         .icon-3dot svg {
           color: var(--colorLink);
-        }
+        } 
 
         .icon-3dot {
           color: var(--colorLink);
@@ -227,9 +254,9 @@ $padding-inside: 1rem;
         position: relative;
 
         .icon-3dot {
+          position: absolute;
+          right: 0.5rem;
           font-size: 3rem;
-          margin-left: 1.2rem;
-          margin-top: -7px;
         }
       }
     }
@@ -253,7 +280,7 @@ $padding-inside: 1rem;
 }
 
 .big {
-  width: 20vw;
+  width: 16vw;
   cursor: initial;
 
   .mask {

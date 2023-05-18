@@ -66,11 +66,14 @@ const RenderItem = React.memo(({ item }: { item: IArrayAction }) => {
     e.stopPropagation();
   };
   return (
-    <Tooltip placement="left" title={title}>
-      <span className={`item__icon ${item.disable ? 'no-click' : ''}`} onClick={onClick}>
-        <RenderIcon {...item} />
-      </span>
-    </Tooltip>
+    <>
+      <Tooltip placement="left" title={title} className="flex flex-col gap-[8px] mt-[20px]">
+        <span className={`item__icon ${item.disable ? 'no-click' : ''}`} onClick={onClick}>
+          <RenderIcon {...item} />
+        </span>
+        <h6 className="text-[12px] tracking-[0.005em]">{title}</h6>
+      </Tooltip>
+    </>
   );
 });
 

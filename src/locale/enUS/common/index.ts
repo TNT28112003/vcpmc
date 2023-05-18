@@ -1,4 +1,5 @@
 export default {
+  'common.playlist': 'Playlist',
   'common.empty': '',
   'common.save': 'Save',
   'common.cancel': 'Cancel',
@@ -23,6 +24,7 @@ export default {
   'common.valid.whitespace': 'Please do not enter white space',
   'common.valid.email': 'Must be in the format',
   'common.deviceType': 'Type of device',
+  'common.device': 'Device',
   'common.email': 'Email address',
   'common.volumn': 'Set up volume',
   'common.powerOn': 'Open source',
@@ -30,7 +32,25 @@ export default {
   'common.refresh': 'Restart',
   'common.update': 'Update',
   'common.continue': 'Continue',
-  'common.management': 'Manage',
+
+  'common.support': 'Support',
+  'common.support.user-manual': 'User Manual',
+  'common.support.download': 'Download app',
+  'common.support.feedback': 'Feedback',
+
+  'common.management': 'Management',
+  'common.management.contract': 'Contract management',
+  'common.management.device': 'Device management',
+  'common.management.authorization': 'Authorization unit',
+  'common.management.unit-used': 'Units used',
+
+  'common.setting': 'Setting',
+  'common.setting.authorization': 'User Authorization',
+  'common.setting.configuration': 'Configuration',
+  'common.setting.management': 'Contract Management',
+  'common.setting.artwork': 'Artwork information',
+  'common.setting.circle-control': 'Control cycle',
+
   'common.formNote': 'Are mandatory information schools',
   'common.active': 'Active',
   'common.deactive': 'Stop operation',
@@ -83,7 +103,17 @@ export default {
   'common.logout.title': 'Confirm logout',
   'common.logout.content': 'Do you really want to log out?',
   'common.change.password': 'Change password',
+
   'common.report': 'Report',
+
+  'common.revenue': 'Revenue',
+  'common.revenue.sales': 'Sales report',
+  'common.revenue.history': 'History',
+  'common.revenue.revenue': 'Revenue distribution',
+
+  'common.record': 'Record Store',
+  'common.schedule-play': 'Schedule play',
+
   'common.page': 'Page',
   'common.answers': 'Answers',
   'common.search': 'Search',
@@ -101,5 +131,5 @@ export default {
   'common.check-in': 'Checkin',
   'common.not-check-in': 'Not checkin',
   'common.LifeBuoy': 'CheckIn diary',
-  'common.total':'Total',
+  'common.total': 'Total',
 };

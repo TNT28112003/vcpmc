@@ -5,7 +5,7 @@ import lodash from 'lodash';
 import { PaginationEntity } from '@core/pagination/entity';
 
 type OP = '$eq' | '$gt' | '$gte' | '$lt' | '$lte' | '$ilike';
-type OP2 = '$btw' | '$in';
+// type OP2 = '$btw' | '$in';
 
 interface IFilterNor {
   value: string | number;

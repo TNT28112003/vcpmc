@@ -3,17 +3,17 @@
   z-index: 1;
   right: 0px;
   top: 21.5rem;
-  width: 4.1vw;
+  width: 8rem;
   min-width: 6rem;
   border-radius: 8px 0px 0px 8px;
   transition: 0.5s;
   background-color: var(--colorBgContainer);
 
   &__menu__content {
-    max-height: 70vh;
     overflow-x: hidden;
     overflow-y: scroll;
     text-align: center;
+    padding: 0 1rem 2rem 1rem;
 
     &::-webkit-scrollbar-track {
       box-shadow: none;
@@ -25,18 +25,19 @@
     }
 
     .item__icon {
-      border-bottom: 1px solid var(--colorPrimary);
       transition: 0.5s ease;
       position: relative;
       font-size: $font-size-icon;
       margin: 0 auto;
-      width: 70%;
-      min-width: 3.2rem;
-      height: 6.4rem;
+      width: 3.4rem;
+      height: 3.4rem;
+      min-width: 3.4rem;
+      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      background-color: #3E3E50;
 
       &:last-child {
         border-bottom: none;

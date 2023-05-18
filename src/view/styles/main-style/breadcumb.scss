@@ -3,6 +3,7 @@
   .ant-typography {
     font-size: 3.8rem;
     margin-bottom: 3.8rem;
+    color: var(--colorTextLightSolid);
   }
 }
 
@@ -14,7 +15,7 @@
   font-weight: $font-weight-medium;
   font-size: $fs-1;
   line-height: 2.7rem;
-  color: var(--colorText);
+  color: var(--colorTextLightSolid);
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(226, 232, 240, 0.5);
 

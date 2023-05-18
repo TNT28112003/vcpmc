@@ -2,6 +2,7 @@ import React, { memo, PropsWithChildren, useState } from 'react';
 
 import Loading from '@shared/components/Loading';
 import SiderComponent from './Sidebar';
+import Header from './Header';
 
 interface IDefaultLayoutProps {
   history?: any;
@@ -34,8 +35,8 @@ const DefaultLayout: React.FC<PropsWithChildren<IDefaultLayoutProps>> = props =>
       {props.hideSideBar !== true && <SiderComponent setClassName={setMenu} className={menu} />}
       <div className="right-page-component" onClick={onClick}>
         {props.hideHeader !== true && (
-          <div className="w-full flex flex-row-reverse">
-            {/* <HeaderComponent /> */}
+          <div className="w-full flex flex-row-reverse bg-[#1e1e2e]">
+            <Header />
           </div>
         )}
         <div className={props.hideSideBar === true ? '' : 'main-component'}>{props.children}</div>

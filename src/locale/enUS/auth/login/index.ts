@@ -15,4 +15,5 @@ export default {
   'login.remember': 'Remember me',
   'login.back': 'Back to login',
   'login.email': 'Email',
+  'login.logout': 'Log out',
 };

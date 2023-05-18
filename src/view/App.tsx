@@ -33,13 +33,10 @@ dayjs.extend(utc);
 
 export const initStyle: ThemeColors = {
   colorPrimary: '#FF7506',
-  colorPrimaryLight: '#82CA92',
-  colorText: '#333333',
-  colorTextSecondary: '#4f4c4d',
   colorLink: '#fff',
-  colorBgContainer: '#fff',
-  colorBgLayout: '#f5f5f5',
-  fontFamily: 'Roboto',
+  colorBgContainer: '#2F2F41',
+  colorBgLayout: '#1e1e2e',
+  fontFamily: 'Montserrat',
   colorError: 'red',
   colorTextBase: '#000',
   colorTextLightSolid: '#fff',

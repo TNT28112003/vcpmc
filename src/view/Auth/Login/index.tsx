@@ -2,7 +2,7 @@ import '../styles.scss';
 
 import { Button, Checkbox, Form, Input } from 'antd';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { logo } from '@assets/images';
 import { useSingleAsync } from '@hook/useAsync';
@@ -114,7 +114,8 @@ const Login = () => {
             </div>
             {/* <Button htmlType="submit">
               {formatMessage('register.button.account')}
-            </Button> */}
+            </Button> */} 
+            <Link to="/register">register</Link>
           </Form>
         </div>
       </div>

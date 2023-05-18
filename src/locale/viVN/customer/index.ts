@@ -17,7 +17,7 @@ export default {
   'customer.isActive': 'Trạng thái hoạt động',
   'customer.statusConfirm': 'Đã xác nhận',
   'customer.statusUnConfirm': 'Chưa xác nhận',
-  'customer.information': 'Thông tin',
+  'customer.information': 'Thông tin cơ bản',
   'customer.delete': 'Xóa khách hàng',
   'customer.content.delete': 'Bạn có chắc chắn muốn xóa khách hàng này không?',
   'customer.amountEntry': 'Trạng thái checkin',

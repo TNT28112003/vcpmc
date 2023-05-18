@@ -1,11 +1,8 @@
-import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import { RootState } from '@modules';
-import authenticationPresenter from '@modules/authentication/presenter';
 import ButtonForm from '@shared/components/ButtonForm';
 import MainTitleComponent from '@shared/components/MainTitleComponent';
-import { useSingleAsync } from '@shared/hook/useAsync';
 import { useAltaIntl } from '@shared/hook/useTranslate';
-import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd';
+import { Col, Form, Input, Row } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,15 +10,68 @@ import { useNavigate } from 'react-router-dom';
 import AvatarUser from './components/AvatarUser';
 import ModalChangePassWord from './components/ModalChangePassWord';
 import './style.scss';
+import RightMenu, { IArrayAction } from '@layout/RightMenu';
+import authenticationPresenter from '@modules/authentication/presenter';
+import { useSingleAsync } from '@hook/useAsync';
+import { DocumentData, QuerySnapshot, collection, onSnapshot } from 'firebase/firestore';
+import { FirebaseConfig } from 'src/firebase/firebase.config';
 
 const Profile = () => {
+  const db = FirebaseConfig.getInstance().fbDB;
   const [form] = Form.useForm();
   const { formatMessage } = useAltaIntl();
   const [isDisableForm, setIsDisableForm] = useState(true);
-  const { user } = useSelector((state: RootState) => state.profile);
-  const navigate = useNavigate();
-  const updateProfile = useSingleAsync(authenticationPresenter.updateProfile);
+  // const { user } = useSelector((state: RootState) => state.profile);
   const [isVisible, setIsVisible] = useState(false);
+
+  interface UserType {
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    // date: string;
+    phone?: string;
+    email?: string;
+    displayName?: string;
+    role?: string;
+  }
+
+  const { logout } = authenticationPresenter;
+  const logoutCurrentAuth = useSingleAsync(logout);
+
+  const SignOut = () => {
+    logoutCurrentAuth.execute().then(response => console.log(response));
+  };
+
+  const arrayAction: IArrayAction[] = [
+    {
+      iconType: 'edit',
+      name: 'profile.edit',
+      handleAction: () => setIsDisableForm(false),
+    },
+    {
+      iconType: 'key',
+      name: 'common.change.password',
+      handleAction: () => setIsVisible(true),
+    },
+    {
+      iconType: 'logOut',
+      name: 'login.logout',
+      handleAction: () => SignOut(),
+    },
+  ];
+
+  const [userProfile, setUserProfile] = useState<UserType[]>([]);
+
+  const user = {
+    id: userProfile[0]?.id,
+    firstName: userProfile[0]?.firstName,
+    lastName: userProfile[0]?.lastName,
+    phone: userProfile[0]?.phone,
+    email: userProfile[0]?.email,
+    displayName: userProfile[0]?.displayName,
+    role: userProfile[0]?.role,
+    DoB: '28/11/2003',
+  };
 
   useEffect(() => {
     if (!user) {
@@ -36,34 +86,30 @@ const Profile = () => {
     form.setFieldsValue({ avatar: file });
   };
 
-  const arrayAction: IArrayAction[] = [
-    {
-      iconType: 'edit',
-      name: 'profile.edit',
-      handleAction: () => setIsDisableForm(false),
-    },
-    {
-      iconType: 'key',
-      name: 'common.change.password',
-      handleAction: () => setIsVisible(true),
-    },
-  ];
+  const onUpdateProfile = () => {};
 
-  const onUpdateProfile = (values: any) => {
-    values.avatar = typeof values.avatar === 'string' ? undefined : values.avatar;
-    values.citizenId = values.citizenId || undefined;
-    values.address = values.address || undefined;
-    values.countryName = values.countryName || undefined;
-    values.dob = dayjs(values.dob).utc().format();
-    updateProfile.execute(values).then(() => {
-      authenticationPresenter.getProfile().then(() => {
-        setIsDisableForm(true);
-      });
-    });
-  };
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'users'), (snapshot: QuerySnapshot<DocumentData>) => {
+        setUserProfile(
+          snapshot.docs.map(doc => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          }),
+        );
+      }),
+    [],
+  );
+
+  console.log('====================================');
+  console.log(userProfile);
+  console.log('====================================');
 
   return (
     <div className="profile-page">
+      <MainTitleComponent title="customer.information" />
       <div className="main-component">
         <div className="profile-user__box">
           <Form
@@ -80,97 +126,97 @@ const Profile = () => {
             id="userProfileForm"
             disabled={isDisableForm}
           >
-            <div className="profile-avatar">
-              <AvatarUser chooseFile={chooseFile} disabled={isDisableForm} />
-            </div>
-            <Row className="profile-form__box" justify="center">
-              <Col span={8}>
-                <div className="main-form">
-                  <Form.Item
-                    label={formatMessage('users.fullName')}
-                    name="name"
-                    rules={[{ required: true }]}
-                  >
-                    <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
-                  </Form.Item>
-                  <Form.Item
-                    label={formatMessage('users.phoneNumber')}
-                    name="phoneNumber"
-                    rules={[{ required: true }]}
-                  >
-                    <Input placeholder={formatMessage('users.phoneNumber')} />
-                  </Form.Item>
-                  <Form.Item label={formatMessage('users.citizenId')} name="citizenId">
-                    <Input placeholder={formatMessage('users.citizenId')} maxLength={256} />
-                  </Form.Item>
-                  <Form.Item label={formatMessage('users.countryName')} name="countryName">
-                    <Input placeholder={formatMessage('users.countryName')} maxLength={256} />
-                  </Form.Item>
+            <Row className="profile-form__box">
+              <Col span={7}>
+                <div className="profile-avatar">
+                  <AvatarUser chooseFile={chooseFile} disabled={isDisableForm} />
+                  <br />
+                  <div className="text-center">
+                    <p className="block text-white text-[20px] font-semibold leading-[0.2%]">
+                      {userProfile[0]?.firstName + ' ' + userProfile[0]?.lastName}
+                    </p>
+                  </div>
                 </div>
               </Col>
-              <Col span={8}>
+              <Col span={10}>
                 <div className="main-form">
-                  <Form.Item
-                    label={formatMessage('users.email')}
-                    name="email"
-                    rules={[{ required: true }]}
-                  >
-                    <Input placeholder={formatMessage('users.email')} disabled />
+                  <Row gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={formatMessage('Họ')}
+                        name="firstName"
+                        rules={[{ required: true }]}
+                      >
+                        <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={formatMessage('Tên')}
+                        name="lastName"
+                        rules={[{ required: true }]}
+                      >
+                        <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Row gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={formatMessage('Ngày sinh')}
+                        name="DoB"
+                        rules={[{ required: true }]}
+                      >
+                        <Input
+                          placeholder={formatMessage('users.fullName')}
+                          value={userProfile[0]?.firstName}
+                          maxLength={256}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={formatMessage('Số điện thoại')}
+                        name="phone"
+                        rules={[{ required: true }]}
+                      >
+                        <Input
+                          placeholder={formatMessage('users.fullName')}
+                          value={userProfile[0]?.displayName}
+                          maxLength={256}
+                        />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  <Form.Item label={formatMessage('users.email')} name="email">
+                    <Input placeholder={formatMessage('users.email')} maxLength={256} />
                   </Form.Item>
-                  <Form.Item
-                    label={formatMessage('users.birthday')}
-                    name="dob"
-                    rules={[{ required: true }]}
-                  >
-                    <DatePicker
-                      placeholder={formatMessage('users.birthday')}
-                      format={'DD/MM/YYYY'}
-                    />
+                  <Form.Item label={formatMessage('Tên đăng nhập')} name="displayName">
+                    <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
                   </Form.Item>
-                  <Form.Item
-                    label={formatMessage('users.gender')}
-                    name="gender"
-                    rules={[{ required: true }]}
-                  >
-                    <Select
-                      placeholder={formatMessage('users.gender')}
-                      options={[
-                        {
-                          label: formatMessage('users.male'),
-                          value: 1,
-                        },
-                        {
-                          label: formatMessage('users.female'),
-                          value: 2,
-                        },
-                        {
-                          label: formatMessage('users.other'),
-                          value: 3,
-                        },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item label={formatMessage('users.address')} name="address">
-                    <Input placeholder={formatMessage('users.address')} maxLength={256} />
-                  </Form.Item>
+                  <Row gutter={[16, 16]}>
+                    <Col span={12}>
+                      <Form.Item
+                        label={formatMessage('Phân quyền')}
+                        name="role"
+                        rules={[{ required: true }]}
+                      >
+                        <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
                 </div>
               </Col>
             </Row>
           </Form>
         </div>
-        {isDisableForm ? (
-          <div className="wrap_btn">
-            <Button type="primary" onClick={() => navigate(-1)}>
-              {formatMessage('common.back')}
-            </Button>
-          </div>
-        ) : (
+        {isDisableForm == false && (
           <ButtonForm
             formName="profile-form"
             nameButtonSubmit={'common.update'}
             onCancelForm={() => {
               setIsDisableForm(true);
-              form.setFieldsValue(user);
+              // form.setFieldsValue(user);
             }}
             onOkForm={() => form.submit()}
           />

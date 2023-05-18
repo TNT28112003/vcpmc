@@ -88,12 +88,21 @@
     font-size: $fs-1;
     border-radius: 6px;
     padding: 0.9rem 1.6rem;
-    color: $color-ant-input !important;
-  }
+    color: #fff !important;
+    border-color: transparent;
 
+    &::placeholder {
+      color: #878890 !important;
+    }
+  }
+  .ant-input-affix-wrapper-focused {
+    border: 1px solid blue !important;
+    box-shadow: none;
+  }
   .ant-input:focus,
   .ant-input:hover,
   .ant-input-focused {
+    box-shadow: none;
     outline: 0;
   }
 
@@ -174,8 +183,7 @@
     }
   }
 
-  .ant-form-item-label
-    > label.ant-form-item-required:not(.ant-form-item-required-mark-optional) {
+  .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional) {
     &::before {
       content: none;
       line-height: 0;

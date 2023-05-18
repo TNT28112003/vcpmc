@@ -14,5 +14,6 @@ export default {
   'login.mobile.error': 'Sai số điện thoại',
   'login.remember': 'Ghi nhớ đăng nhập',
   'login.back': 'Quay lại đăng nhập',
-  'login.email': 'Email'
+  'login.email': 'Email',
+  'login.logout': 'Đăng xuất'
 };

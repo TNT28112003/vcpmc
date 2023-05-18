@@ -5,10 +5,7 @@ import { UilAngleRight } from '@iconscout/react-unicons';
 import { IRouter } from '@routers/interface';
 import { privatePage } from '@routers/mainRouter';
 import CheckPermission from '@shared/hoc/CheckPermission';
-import './style.scss';
 import MenuItem from './ItemMenu';
-import authenticationPresenter from '@modules/authentication/presenter';
-import { useSingleAsync } from '@hook/useAsync';
 import { logo } from '@assets/images';
 interface IRenderMenuProps {
   listNav: Array<IRouter>;
@@ -17,8 +14,7 @@ interface IRenderMenuProps {
 
 const renderMenu: React.FC<IRenderMenuProps> = (props: IRenderMenuProps) => {
   const listNav = props.listNav.slice(1, props.listNav.length + 1);
-  // console.log('listNav:', listNav);
-
+  console.log('listNav:', listNav);
   return (
     <>
       {listNav.map((item: IRouter, index) => {
@@ -53,12 +49,7 @@ const SiderComponent: React.FC<{
     e.preventDefault();
     e.stopPropagation();
   };
-  const { logout } = authenticationPresenter;
-  const logoutCurrentAuth = useSingleAsync(logout);
 
-  const SignOut = () => {
-    logoutCurrentAuth.execute().then(response => console.log(response));
-  };
   useEffect(() => {
     if (className === 'sider-component') {
       setWidth(0);
@@ -78,9 +69,6 @@ const SiderComponent: React.FC<{
         </div>
         <div className="menu">
           <RenderMenu listNav={privatePage} location={location.pathname} />
-        </div>
-        <div className="logout d-flex" onClick={SignOut}>
-          Đăng xuất
         </div>
       </div>
     </div>

@@ -45,6 +45,10 @@
   border-left-color: $color-select;
 }
 
+.ant-dropdown-placement-bottomLeft {
+  left: 212px !important;
+}
+
 .ant-dropdown-placement-topCenter > .ant-dropdown-arrow,
 .ant-dropdown-placement-topLeft > .ant-dropdown-arrow,
 .ant-dropdown-placement-topRight > .ant-dropdown-arrow {

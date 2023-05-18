@@ -1,7 +1,7 @@
 import { Dropdown, Menu } from 'antd';
 import React, { memo, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { matchPath, useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { UilEllipsisV } from '@iconscout/react-unicons';
@@ -74,9 +74,10 @@ const Item: React.FC<IMenu> = (props: IMenu) => {
       <div className={`menu--component--item three-dot ${active}`} key={item.path}>
         <Dropdown
           overlay={<SubItem data={item} activePath={location.pathname} />}
-          placement="bottomLeft"
           trigger={['hover']}
-        ><div className="item-label">
+          placement='bottomLeft'
+        >
+          <div className="item-label">
             <span>
               {item.menu?.icon && <span className="item-hover__icon">{item.menu.icon}</span>}
               <a className="item__nav">
@@ -92,15 +93,16 @@ const Item: React.FC<IMenu> = (props: IMenu) => {
     );
   }
 
-
-
   return (
     <div className={`menu--component--item ${active}`}>
       <Link to={path} className="item-label">
         <span>
           {item.menu?.icon && <span className="item-hover__icon">{item.menu.icon}</span>}
           <span className="item__nav">
-            <FormattedMessage id={item.name} defaultMessage={item.name ? formatMessage(item.name) : item.name} />
+            <FormattedMessage
+              id={item.name}
+              defaultMessage={item.name ? formatMessage(item.name) : item.name}
+            />
           </span>
         </span>
       </Link>

@@ -1,23 +1,21 @@
 @import './variable';
 @import './mixin';
 
-
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Montserrat';
   font-weight: normal;
   font-display: swap;
-  src: local('Roboto Regular'), local('Roboto-Regular'),
-    url('../../shared/assets/font/Roboto/Roboto-Regular.ttf') format('truetype');
+  src: local('Montserrat Regular'), local('Montserrat-Regular'),
+    url('../../shared/assets/font/Montserrat/Montserrat-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Montserrat';
   font-weight: bold;
   font-display: swap;
-  src: local('Roboto Bold'), local('Roboto-Bold'),
-    url('../../shared/assets/font/Roboto/Roboto-Bold.ttf') format('truetype');
+  src: local('Montserrat Bold'), local('Montserrat-Bold'),
+    url('../../shared/assets/font/Montserrat/Montserrat-Bold.ttf') format('truetype');
 }
-
 
 html {
   font-size: 10px;
@@ -31,7 +29,7 @@ body {
   line-height: normal;
   font-family: var(--fontFamily);
   color: var(--colorTextMain);
-  background-color: #1E1E2E;
+  background-color: #1e1e2e;
 }
 
 div#root {

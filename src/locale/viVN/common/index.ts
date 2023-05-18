@@ -26,6 +26,7 @@ export default {
   'common.valid.whitespace': 'Vui lòng không nhập khoảng trắng',
   'common.valid.email': 'Phải đúng định dạng',
   'common.deviceType': 'Loại thiết bị',
+  'common.device': 'Thiết bị',
   'common.email': 'Địa chỉ email',
   'common.update.user': 'Chỉnh sửa hố sơ',
   'common.update.change-password': 'Thay đổi mật khẩu',
@@ -39,7 +40,25 @@ export default {
   'common.refresh': 'Khởi động lại',
   'common.update': 'Cập nhật',
   'common.continue': 'Tiếp tục',
+
+  'common.support': 'Hỗ trợ',
+  'common.support.user-manual': 'Hướng dẫn sử dụng',
+  'common.support.download': 'Tải app',
+  'common.support.feedback': 'Feedback',
+
   'common.management': 'Quản lý',
+  'common.management.contract': 'Quản lý hợp đồng',
+  'common.management.device': 'Quản lý thiết bị',
+  'common.management.authorization': 'Đơn vị ủy quyền',
+  'common.management.units-used': 'Đơn vị sử dụng',
+
+  'common.setting': 'Cài đặt',
+  'common.setting.authorization': 'Phân quyền người dùng',
+  'common.setting.configuration': 'cấu hình',
+  'common.setting.management': 'Quản lý hợp đồng',
+  'common.setting.artwork': 'Thông tin tác phẩm',
+  'common.setting.circle-control': 'Chu kỳ đối soát',
+
   'common.formNote': 'Là những trường thông tin bắt buộc',
   'common.active': 'Đang hoạt động',
   'common.deactive': 'Dừng hoạt động',
@@ -93,7 +112,19 @@ export default {
   'common.logout.title': 'Xác nhận đăng xuất',
   'common.logout.content': 'Bạn có thực sự muốn đăng xuất không?',
   'common.change.password': 'Đổi mật khẩu',
+
   'common.report': 'Báo cáo',
+
+  'common.playlist' : 'Danh sách phát',
+
+  'common.revenue': 'Doanh thu',
+  'common.revenue.sales': 'Báo cáo doanh thu',
+  'common.revenue.history': 'Lịch sử đối soát',
+  'common.revenue.revenus': 'Phân phối doanh thu',
+
+  'common.record': 'Kho bản ghi',
+  'common.schedule-play': 'Lập lịch phát',
+
   'common.page': 'Trang',
   'common.search': 'Tìm kiếm',
   'common.transactions': 'Kiểm kê',
@@ -104,5 +135,5 @@ export default {
   'common.check-in': 'Đã checkin',
   'common.not-check-in': 'Chưa checkin',
   'common.LifeBuoy': 'Nhật ký checkin',
-  'common.total':'Tổng tiền',
+  'common.total': 'Tổng tiền',
 };

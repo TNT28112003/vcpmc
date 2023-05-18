@@ -4,6 +4,7 @@ import { IRouter } from '@routers/interface';
 
 import BreadcrumbComponent from './BreadcumbComponent';
 import TitleComponent from './TitleComponent/index';
+import { useAltaIntl } from '@shared/hook/useTranslate';
 
 export interface IBreadcrumbs {
   name: string;
@@ -22,6 +23,7 @@ const MainTitleComponent = ({
   title = '',
   breadcrumbs,
 }: Props) => {
+  const { formatMessage } = useAltaIntl();
   let titleIn = '';
   if (title) {
     titleIn = title;
@@ -40,7 +42,7 @@ const MainTitleComponent = ({
       ) : (
         ''
       )}
-      <TitleComponent title={titleIn} className={classTitle} />
+      <TitleComponent title={formatMessage(titleIn)} className={classTitle} />
     </div>
   );
 };

@@ -17,7 +17,7 @@ export default {
   'customer.isActive': 'Active status',
   'customer.statusConfirm': 'Confirmed',
   'customer.statusUnConfirm': 'Unconfimred',
-  'customer.information': 'Information',
+  'customer.information': 'Basic Information',
   'customer.delete': 'Delete customers',
   'customer.content.delete': 'Are you sure you want to delete this customer?',
   'customer.amountEntry': 'Checkin status',
