@@ -8,7 +8,6 @@ const { Option } = Select;
 
 export interface ISelectAndLabel {
   disabled?: boolean;
-  textLabel?: any;
   defaultValue?: any;
   dataString?: Array<ISelect>;
   onChange?: any;
@@ -64,21 +63,9 @@ const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLab
     });
   }, [dataString, keyLabel, translate]);
 
-  const renderUILabel = React.useMemo(() => {
-    if (props?.textLabel == null) {
-      return undefined;
-    }
-    return (
-      <div className="">
-        <FormattedMessage id={props.textLabel} defaultMessage={props.textLabel} />
-      </div>
-    );
-  }, [props.textLabel]);
-
   return (
     <div className={`select-label-component ${className}`}>
       <div className="label-select">
-        {renderUILabel}
         <Select
           className={'select-custom ' + (props.classNameSelect || '')}
           value={value == null ? all : value}

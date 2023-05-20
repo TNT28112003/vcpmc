@@ -112,7 +112,7 @@ export const UserSelector: Selector<RootState, IUser> = state => {
     status: state.profile.statusLogin || false,
   };
 };
-
+  
 interface IPermissions {
   listPermissionCode: string[];
   status: boolean;

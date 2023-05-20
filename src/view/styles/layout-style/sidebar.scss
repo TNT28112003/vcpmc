@@ -2,8 +2,8 @@ $size-img: 10rem;
 $padding-inside: 1rem;
 
 @mixin logo {
-  width: 15rem;
-  height: 15rem;
+  width: 12rem;
+  height: 12rem;
   object-fit: contain;
   cursor: pointer;
   background-color: #fff;
@@ -232,7 +232,8 @@ $padding-inside: 1rem;
         .item__nav {
           color: var(--colorLink);
           transition: color 1s;
-          font-size: 1.4rem;
+          font-size: 1.3rem;
+          font-weight: $font-weight-medium;
         }
 
         .item-hover__icon svg {

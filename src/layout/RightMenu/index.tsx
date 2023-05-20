@@ -30,6 +30,8 @@ const listIconType = {
   eye: <Icon.Eye size="24" className="icon-feather" />,
   eyeOff: <Icon.EyeOff size="24" className="icon-feather" />,
   addSchool: <Icon.FilePlus size="24" className="icon-feather" />,
+  lock: <Icon.Lock size="24" className="icon-feather" />,
+  power: <Icon.Power size="24" className="icon-feather" />,
 };
 export interface IArrayAction {
   icon?: any;

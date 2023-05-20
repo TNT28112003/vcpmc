@@ -2,22 +2,22 @@
   margin-top: 0.1rem;
   .ant-typography {
     font-size: 3.8rem;
-    margin-bottom: 3.8rem;
     color: var(--colorTextLightSolid);
   }
+}
+
+.ant-typography {
+  margin-bottom: 0 !important;
 }
 
 //======Breadcrumb=========
 .breadcrumb__box {
   display: flex;
   align-items: center;
-  margin: 1rem 0;
   font-weight: $font-weight-medium;
   font-size: $fs-1;
   line-height: 2.7rem;
   color: var(--colorTextLightSolid);
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
 
   a {
     opacity: 0.8;
@@ -40,7 +40,7 @@
     .anticon {
       display: flex;
       svg {
-        color: var(--colorText);
+        color: var(--colorPrimary);
         font-size: 2.1rem;
       }
     }

@@ -1,11 +1,10 @@
 import MainTitleComponent from '@shared/components/MainTitleComponent';
 import React, { useState } from 'react';
-import { routerManager } from '../router';
 import { Tabs } from 'antd';
-import AuthorizeContract from './AuthorizeContract';
-import MiningContract from './MiningContract';
-
 import './style.scss';
+import { routerManager } from '@view/Manager/router';
+import ContractInformation from './ContractInformation';
+import AuthorizationWork from './AuthorizationWork';
 
 const Contract = () => {
   const [showItemView, setShowItemView] = useState('1');
@@ -14,21 +13,11 @@ const Contract = () => {
   };
   return (
     <div className="manager__contract__page">
-      <div className="mb-[20px]">
-        {showItemView == '1' ? (
-          <MainTitleComponent
-            breadcrumbs={routerManager}
-            title={'Danh sách hợp đồng'}
-            classTitle="default-title"
-          />
-        ) : (
-          <MainTitleComponent
-            breadcrumbs={routerManager}
-            title={'Danh sách hợp đồng khai thác'}
-            classTitle="default-title"
-          />
-        )}
-      </div>
+      <MainTitleComponent
+        breadcrumbs={routerManager}
+        title={'common.record'}
+        classTitle="default-title"
+      />
       <Tabs
         defaultActiveKey="1"
         onChange={onChange}
@@ -44,7 +33,7 @@ const Contract = () => {
           },
         ]}
       />
-      {showItemView === '1' ? <AuthorizeContract /> : <MiningContract />}
+      {showItemView === '1' ? <ContractInformation /> : <AuthorizationWork />}
     </div>
   );
 };

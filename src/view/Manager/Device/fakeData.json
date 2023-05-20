@@ -1,0 +1,32 @@
+[
+  {
+    "key": "9",
+    "id": "9",
+    "name": "Device A12231",
+    "status": 1,
+    "address": "86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh",
+    "contractTerm": "21/04/2021",
+    "macAddress": "123.12.156.10",
+    "memory": "0.00GB/32GB"
+  },
+  {
+    "key": "8",
+    "id": "8",
+    "name": "Device A12231",
+    "status": 1,
+    "address": "86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh",
+    "contractTerm": "21/04/2021",
+    "macAddress": "123.12.156.10",
+    "memory": "0.00GB/32GB"
+  },
+  {
+    "key": "7",
+    "id": "7",
+    "name": "Device A12231",
+    "status": 1,
+    "address": "86/33, Âu Cơ, Phường 9, Tân Bình, TP Hồ Chí Minh",
+    "contractTerm": "21/04/2021",
+    "macAddress": "123.12.156.10",
+    "memory": "0.00GB/32GB"
+  }
+]

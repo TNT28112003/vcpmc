@@ -21,7 +21,7 @@ const Profile = () => {
   const [form] = Form.useForm();
   const { formatMessage } = useAltaIntl();
   const [isDisableForm, setIsDisableForm] = useState(true);
-  // const { user } = useSelector((state: RootState) => state.profile);
+  const { user } = useSelector((state: RootState) => state.profile);
   const [isVisible, setIsVisible] = useState(false);
 
   interface UserType {
@@ -62,24 +62,15 @@ const Profile = () => {
 
   const [userProfile, setUserProfile] = useState<UserType[]>([]);
 
-  const user = {
-    id: userProfile[0]?.id,
-    firstName: userProfile[0]?.firstName,
-    lastName: userProfile[0]?.lastName,
-    phone: userProfile[0]?.phone,
-    email: userProfile[0]?.email,
-    displayName: userProfile[0]?.displayName,
-    role: userProfile[0]?.role,
-    DoB: '28/11/2003',
-  };
+  console.log('====================================');
+  console.log(user);
+  console.log('====================================');
 
   useEffect(() => {
-    if (!user) {
-      return;
+    if (user != null) {
+      setIsDisableForm(true);
+      form.setFieldsValue(user);
     }
-    form.setFieldsValue({
-      ...user,
-    });
   }, [form, user]);
 
   const chooseFile = (file: any) => {
@@ -88,28 +79,30 @@ const Profile = () => {
 
   const onUpdateProfile = () => {};
 
-  useEffect(
-    () =>
-      onSnapshot(collection(db, 'users'), (snapshot: QuerySnapshot<DocumentData>) => {
-        setUserProfile(
-          snapshot.docs.map(doc => {
-            return {
-              id: doc.id,
-              ...doc.data(),
-            };
-          }),
-        );
-      }),
-    [],
-  );
+  // useEffect(
+  //   () =>
+  //     onSnapshot(collection(db, 'users'), (snapshot: QuerySnapshot<DocumentData>) => {
+  //       setUserProfile(
+  //         snapshot.docs.map(doc => {
+  //           return {
+  //             id: doc.id,
+  //             ...doc.data(),
+  //           };
+  //         }),
+  //       );
+  //     }),
+  //   [],
+  // );
 
-  console.log('====================================');
-  console.log(userProfile);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(userProfile);
+  // console.log('====================================');
 
   return (
     <div className="profile-page">
-      <MainTitleComponent title="customer.information" />
+      <div className="mb-[20px]">
+        <MainTitleComponent title="customer.information" />
+      </div>
       <div className="main-component">
         <div className="profile-user__box">
           <Form
