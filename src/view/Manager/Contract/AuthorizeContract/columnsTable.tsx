@@ -68,7 +68,14 @@ export const columns: ColumnsType<DataType> = [
     key: 'update',
     dataIndex: 'update',
     render: () => {
-      return <Link to={''} style={{ color: '#FF7506', textDecoration: 'underline' }}>Xem chi tiết</Link>;
+      return (
+        <Link
+          to={'/manager/contract/authorize/1'}
+          style={{ color: '#FF7506', textDecoration: 'underline' }}
+        >
+          Xem chi tiết
+        </Link>
+      );
     },
   },
   {

@@ -73,7 +73,7 @@ const RenderItem = React.memo(({ item }: { item: IArrayAction }) => {
         <span className={`item__icon ${item.disable ? 'no-click' : ''}`} onClick={onClick}>
           <RenderIcon {...item} />
         </span>
-        <h6 className="text-[12px] tracking-[0.005em]">{title}</h6>
+        <h6 className="text-[10px] tracking-[0.005em]">{title}</h6>
       </Tooltip>
     </>
   );

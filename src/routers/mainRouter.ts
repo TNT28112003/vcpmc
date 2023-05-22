@@ -3,7 +3,14 @@ import { routerLogin } from '@view/Auth/Login/router';
 import { routerPageError } from '@view/PageError/router';
 import { IRouter } from './interface';
 import { routerViewProfile } from '@view/Auth/Profiles/router';
-import { routerManager } from '@view/Manager/router';
+import {
+  routerManager,
+  routerManagerAuthorization,
+  routerManagerContract,
+  routerManagerDevice,
+  routerManagerUnitsUsed,
+  routerManagerDetails,
+} from '@view/Manager/router';
 import { routerViewRecord } from '@view/RecordStore/router';
 import { routerSupport } from '@view/Support/router';
 import { routerSetting } from '@view/Setting/router';

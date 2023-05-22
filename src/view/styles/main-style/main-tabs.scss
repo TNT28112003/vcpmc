@@ -8,3 +8,7 @@
     }
   }
 }
+
+:where(.css-dev-only-do-not-override-v6kcz5).ant-tabs > .ant-tabs-nav .ant-tabs-nav-more {
+  display: none !important;
+}

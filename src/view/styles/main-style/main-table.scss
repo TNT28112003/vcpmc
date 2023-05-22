@@ -1,6 +1,6 @@
 .ant-table {
   padding: 2px 16px !important;
-  background-color: #30303F !important;
+  background-color: #30303f !important;
 }
 
 .ant-table-tbody > tr > td {
@@ -16,14 +16,8 @@
 .ant-table-wrapper .ant-table-thead > tr > th,
 .ant-table-wrapper .ant-table-thead > tr > td,
 .ant-table-cell,
-.ant-table-wrapper
-  .ant-table-tbody
-  > tr.ant-table-row:hover
-  > th,
-.ant-table-wrapper
-  .ant-table-tbody
-  > tr.ant-table-row:hover
-  > td,
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > th,
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-wrapper
   .ant-table-tbody
   > tr
@@ -60,8 +54,7 @@
   display: none;
 }
 
-.ant-table-wrapper
-  .ant-table-pagination.ant-pagination {
+.ant-table-wrapper .ant-table-pagination.ant-pagination {
   margin: 0 !important;
   padding: 10px 16px;
   background: #30303f;
@@ -100,10 +93,38 @@ button[class='ant-pagination-item-link'] {
   align-items: center;
 }
 
-.ant-table-wrapper .ant-table-tbody>tr>td {
+.ant-table-wrapper .ant-table-tbody > tr > td {
   padding: 0.9rem !important;
   text-align: center;
 }
-.ant-table-wrapper .ant-table-tbody >tr.ant-table-row-selected >td {
-    background: transparent;
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td {
+  background: transparent;
+}
+
+.ant-table-content > table {
+  border-top: none !important;
+}
+
+:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container {
+  border-inline-start: none !important;
+}
+:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > tbody
+  > tr
+  > td,
+:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > thead
+  > tr
+  > th {
+  border-inline-end: none !important;
 }
