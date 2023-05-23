@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import ISelect from '@core/select';
+import { ReactSVG } from 'react-svg';
+import { downDropdown, upDropdown } from '@assets/svg';
 
 const { Option } = Select;
 
@@ -20,12 +22,14 @@ export interface ISelectAndLabel {
   name?: string;
   keyLabel?: string;
   translate?: boolean;
+  require?: boolean;
 }
 
 const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLabel) => {
   const { keyLabel, dataString, translate } = props;
   const intl = useIntl();
   const [value, setValue] = useState(props.value);
+  const [dropdownStatus, setDropdownStatus] = useState(false);
 
   useEffect(() => {
     setValue(props.value);
@@ -69,25 +73,38 @@ const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLab
       return undefined;
     }
     return (
-      <div className="">
+      <div>
         <FormattedMessage id={props.textLabel} defaultMessage={props.textLabel} />
+        {props?.require ? <span style={{ color: 'red' }}>*</span> : ''}
       </div>
     );
   }, [props.textLabel]);
 
   return (
-    <div className={`select-label-component ${className}`}>
+    <div
+      className={`select-label-component ${className}`}
+      onClick={() => setDropdownStatus(prev => !prev)}
+    >
       <div className="label-select">
         {renderUILabel}
         <Select
           className={'select-custom ' + (props.classNameSelect || '')}
-          value={value == null ? all : value}
-          defaultValue={props?.defaultValue ? props?.defaultValue : all}
+          value={value == null ? all : value === '' ? null : value}
+          defaultValue={props?.defaultValue ? props?.defaultValue : null}
           onChange={onChange}
           disabled={props.disabled}
+          suffixIcon={
+            dropdownStatus === false ? (
+              <ReactSVG src={downDropdown} />
+            ) : (
+              <ReactSVG src={upDropdown} />
+            )
+          }
           placeholder={props?.placeholder}
-          popupClassName={props?.dropdownClassName}
-          getPopupContainer={trigger => trigger.parentElement}
+          dropdownClassName={props?.dropdownClassName}
+          dropdownRender={menu => {
+            return <React.Fragment>{menu}</React.Fragment>;
+          }}
         >
           {renderUIOption}
         </Select>

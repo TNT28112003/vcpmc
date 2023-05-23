@@ -23,10 +23,10 @@ export const getDatas = async (
   option: any,
   collectionName: any,
 ): Promise<{ data: Array<any>; info: PaginationEntity }> => {
-  // const whereQuery = option.filter ? where(option.filter.field, "==", option.filter.value) : where("deviceName", "!=", " ")
-  const deviceCollecttion = collection(db, collectionName);
+  // const whereQuery = option.filter ? where(option.filter.field, "==", option.filter.value) : where("nameName", "!=", " ")
+  const nameCollecttion = collection(db, collectionName);
 
-  var q: Query = query(deviceCollecttion, orderBy('key'));
+  var q: Query = query(nameCollecttion, orderBy('key'));
 
   if (!lodash.isEmpty(option.filter)) {
     let conditions: QueryConstraint[] = [];
@@ -41,11 +41,11 @@ export const getDatas = async (
       // conditions.push(orderBy('key'))
     });
 
-    q = query(deviceCollecttion, ...conditions);
+    q = query(nameCollecttion, ...conditions);
   }
 
   const docs = getDocs(q);
-  const count = getCountFromServer(deviceCollecttion);
+  const count = getCountFromServer(nameCollecttion);
   const data = await docs;
   const total = await count;
 
@@ -58,6 +58,16 @@ export const getDatas = async (
       ),
     );
   }
+  console.group([
+    '===========================================================================',
+    customdata,
+    total.data().count,
+    paging,
+    option,
+    '============================================================================',
+  ]);
+  console.groupEnd();
+
   return { data: customdata, info: { total: customdata.length } };
 };
 

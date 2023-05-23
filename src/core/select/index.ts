@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ISelect<T = React.Key> {
-  value?: string | number | null;
+  value?: string | number;
   label?: string;
   data?: T;
 }

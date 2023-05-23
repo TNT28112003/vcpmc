@@ -1,5 +1,5 @@
 class RecordEntity {
-  reoordId: string = '';
+  recordId: string = '';
   name: string = '';
   ISRC: string = '';
   time: string = '';
@@ -11,11 +11,11 @@ class RecordEntity {
   image: string = '';
   video: string = '';
 
-  constructor(record?: Partial<RecordEntity>) {
-    if (!record) {
+  constructor(records?: Partial<RecordEntity>) {
+    if (!records) {
       return;
     }
-    Object.assign(this, record);
+    Object.assign(this, records);
   }
 }
 

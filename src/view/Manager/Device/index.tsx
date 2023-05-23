@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Table } from 'antd';
 import data from './fakeData.json';
-import { DataType, columns } from './columnsTable';
 import MainTitleComponent from '@shared/components/MainTitleComponent';
 import SelectNoneLableComponent from '@shared/components/SelectNoneLableComponent';
 import { arraySelectFilter } from './selectArray';
 import SearchComponent from '@shared/components/SearchComponent';
 import RightMenu, { IArrayAction } from '@layout/RightMenu';
-import './styles.scss'
+import './styles.scss';
+import ModalDeleteDevice from './components/ModalDeleteDevice';
+import { ColumnsType } from 'antd/es/table';
 
 const Device: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
   const arrayAction: IArrayAction[] = [
     {
       iconType: 'add',
@@ -26,6 +29,45 @@ const Device: React.FC = () => {
     {
       iconType: 'delete',
       name: 'Xoá thiết bị',
+      handleAction: () => setIsVisible(true),
+    },
+  ];
+
+  interface DataType {
+    key: React.Key;
+    id: string;
+    name: string;
+    status: number;
+    address: string;
+    contractTerm: string;
+    macAddress: string;
+    memory: string;
+  }
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'Tên thiết bị',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+    },
+    {
+      title: 'Địa điểm',
+      dataIndex: 'address',
+    },
+    {
+      title: 'Hạn hợp đồng',
+      dataIndex: 'contractTerm',
+    },
+    {
+      title: 'MAC Addresss',
+      dataIndex: 'macAddress',
+    },
+    {
+      title: 'Memory',
+      dataIndex: 'memory',
     },
   ];
 
@@ -37,7 +79,7 @@ const Device: React.FC = () => {
   };
 
   return (
-    <div className='device__page'>
+    <div className="device__page">
       <MainTitleComponent title={'Danh sách thiết bị'} classTitle="default-title" />
       <Row>
         <Col span={21}>
@@ -70,6 +112,7 @@ const Device: React.FC = () => {
         </Col>
       </Row>
       <RightMenu arrayAction={arrayAction} />
+      <ModalDeleteDevice isModalVisible={isVisible} setIsModalVisible={setIsVisible} />
     </div>
   );
 };

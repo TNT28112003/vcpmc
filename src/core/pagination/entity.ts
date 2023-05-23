@@ -9,15 +9,7 @@ export class PaginationEntity {
 
   search?: string;
 
-  sortQuery?: string;
-
-  nextPage?: string;
-
-  PreviousPage?: string;
-
-  hasNext?: boolean;
-
-  hasPrevious?: boolean;
+  OrderByQuery?: string;
 
   private static initPaginationEntity = null;
 
@@ -25,14 +17,10 @@ export class PaginationEntity {
     if (!pagination) {
       return;
     }
-    this.pageSize = lodash.get(pagination, 'pageSize', 100000000);
+    this.pageSize = lodash.get(pagination, 'pageSize', 10);
     this.current = lodash.get(pagination, 'current', 1);
-    this.total = lodash.get(pagination, 'totalCount', 0);
+    this.total = lodash.get(pagination, 'total', 0);
     this.search = lodash.get(pagination, 'search', undefined);
-    this.hasNext = lodash.get(pagination, 'hasNext', undefined);
-    this.hasPrevious = lodash.get(pagination, 'hasNext', undefined);
-    this.nextPage = lodash.get(pagination, 'nextPage', undefined);
-    this.PreviousPage = lodash.get(pagination, 'PreviousPage', undefined);
   }
 
   static init() {

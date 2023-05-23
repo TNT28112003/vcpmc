@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage';
 import CONFIG from '@config/index';
 import appReducer, { RootState } from '@modules/index';
 
-const profile = createWhitelistFilter('profile', ['token', 'refreshToken', 'remember']);
+const profile = createWhitelistFilter('profile', ['token', 'remember']);
 const settingStore = createWhitelistFilter('settingStore', ['language']);
 const persistConfig: PersistConfig<RootState> = {
   key: CONFIG.APP_NAME,
@@ -30,12 +30,10 @@ export default store;
 
 interface IToken {
   token?: string;
-  refreshToken?: string;
 }
 
 export const TokenSelector: Selector<RootState, IToken> = state => {
   return {
     token: state.profile.token,
-    refreshToken: state.profile.refreshToken,
   };
 };

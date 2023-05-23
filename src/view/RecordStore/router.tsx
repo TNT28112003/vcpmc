@@ -3,7 +3,7 @@ import { RecordStore } from '@assets/icon';
 import { IRouter } from '@routers/interface';
 
 export const routerViewRecord: IRouter = {
-  path: '/record',
+  path: '/',
   name: 'common.record',
   loader: import('./index'),
   exact: true,

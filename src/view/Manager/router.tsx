@@ -21,6 +21,20 @@ export const routerManagerContract: IRouter = {
   },
 };
 
+export const routerManagerAddContractAuthorize: IRouter = {
+  path: '/manager/contract/add-authorize-contract',
+  name: 'common.management.contract',
+  loader: import('./Contract/AuthorizeContract/components/Add'),
+  exact: true,
+};
+
+export const routerManagerEditContractAuthorize: IRouter = {
+  path: '/manager/contract/edit-authorize-contract/:id',
+  name: 'common.management.contract',
+  loader: import('./Contract/AuthorizeContract/components/Edit'),
+  exact: true,
+};
+
 export const routerManagerDevice: IRouter = {
   path: '/manager/device',
   name: 'common.management.device',
@@ -74,5 +88,7 @@ export const routerManager: IRouter = {
     routerManagerDevice,
     routerManagerUnitsUsed,
     routerManagerDetails,
+    routerManagerAddContractAuthorize,
+    routerManagerEditContractAuthorize,
   ],
 };
