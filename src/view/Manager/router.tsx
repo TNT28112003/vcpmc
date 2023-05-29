@@ -28,6 +28,13 @@ export const routerManagerAddContractAuthorize: IRouter = {
   exact: true,
 };
 
+export const routerManagerAddRecord: IRouter = {
+  path: '/manager/contract/add-record',
+  name: 'common.management.contract',
+  loader: import('./Contract/AuthorizeContract/components/AddRecord'),
+  exact: true,
+};
+
 export const routerManagerEditContractAuthorize: IRouter = {
   path: '/manager/contract/edit-authorize-contract/:id',
   name: 'common.management.contract',
@@ -90,5 +97,6 @@ export const routerManager: IRouter = {
     routerManagerDetails,
     routerManagerAddContractAuthorize,
     routerManagerEditContractAuthorize,
+    routerManagerAddRecord,
   ],
 };

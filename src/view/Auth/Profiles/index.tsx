@@ -6,7 +6,6 @@ import { Col, Form, Input, Row } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import AvatarUser from './components/AvatarUser';
 import ModalChangePassWord from './components/ModalChangePassWord';
 import './style.scss';

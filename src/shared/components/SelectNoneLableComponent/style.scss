@@ -1,24 +1,50 @@
 .select-none-lable {
-    display: inline-block;
-    margin: 1rem;
+  .select-custom,
+  .ant-select,
+  .ant-select-single,
+  .ant-select:not(.ant-select-customize-input) {
+    .ant-select-selector {
+      background-color: #2f2f41;
+      min-height: 3.6rem;
+      height: 3.96rem;
+      border-radius: 6px;
+      border: 1px solid var(--colorPrimary);
+      color: var(--colortextLightSolid) !important;
 
-    .ant-select {
-        .ant-select-selector {
-            border-radius: 1rem !important;
+      .ant-select-selection-item {
+        color: var(--colortextLightSolid);
+        padding: 0.4rem 1.4rem;
+        margin-right: 2rem;
+      }
 
-            .ant-select-selection-item {
-                font-size: 2rem;
-            }
-        }
-
-        .ant-select-arrow {
-            font-size: 2rem;
-
-            svg {
-                fill: orange
-            }
-        }
+      .ant-select-selection-placeholder {
+        padding: 0.5rem 0;
+      }
     }
 
+    .ant-select-arrow {
+      margin-right: 1rem;
+      margin-top: 0;
+      color: #fff;
+    }
+  }
 
+  .suffix-icon {
+    color: #1d519e;
+    margin-top: -0.5rem;
+  }
+
+  .ant-select-single .ant-select-selector .ant-select-selection-item,
+  .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    line-height: 3.3rem;
+  }
+
+  :where(.css-dev-only-do-not-override-v6kcz5).ant-select {
+    color: #fff;
+    min-width: 12rem;
+  }
+
+  .ant-select.ant-select-in-form-item {
+    width: 100% !important;
+  }
 }

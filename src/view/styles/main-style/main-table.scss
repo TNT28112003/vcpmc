@@ -10,7 +10,7 @@
 .ant-table-wrapper .ant-table-container,
 .ant-table-wrapper table,
 .ant-table-wrapper .ant-table {
-  border-radius: 20px 20px 0px 0px !important;
+  border-radius: 10px 10px 0px 0px !important;
 }
 
 .ant-table-wrapper .ant-table-thead > tr > th,
@@ -39,13 +39,13 @@
   text-align: center;
 }
 
-:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+.ant-table-wrapper
   .ant-table-thead
   > tr
   > td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
     [colspan]
   )::before,
-:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+.ant-table-wrapper
   .ant-table-thead
   > tr
   > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not(
@@ -58,7 +58,7 @@
   margin: 0 !important;
   padding: 10px 16px;
   background: #30303f;
-  border-radius: 0px 0px 16px 16px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 button[class='ant-pagination-item-link'] {
@@ -82,6 +82,7 @@ button[class='ant-pagination-item-link'] {
 }
 
 .ant-pagination .ant-pagination-item {
+  // margin-top: 4px;
   min-width: 22px;
   height: 22px;
   display: flex;
@@ -89,12 +90,8 @@ button[class='ant-pagination-item-link'] {
   justify-content: center;
 }
 
-.ant-table-wrapper .ant-table-pagination-right {
-  align-items: center;
-}
-
 .ant-table-wrapper .ant-table-tbody > tr > td {
-  padding: 0.9rem !important;
+  padding: 1.2rem !important;
   text-align: center;
 }
 .ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td {
@@ -105,12 +102,10 @@ button[class='ant-pagination-item-link'] {
   border-top: none !important;
 }
 
-:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container {
+.ant-table-wrapper .ant-table.ant-table-bordered > .ant-table-container {
   border-inline-start: none !important;
 }
-:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+.ant-table-wrapper
   .ant-table.ant-table-bordered
   > .ant-table-container
   > .ant-table-content
@@ -118,7 +113,7 @@ button[class='ant-pagination-item-link'] {
   > tbody
   > tr
   > td,
-:where(.css-dev-only-do-not-override-v6kcz5).ant-table-wrapper
+.ant-table-wrapper
   .ant-table.ant-table-bordered
   > .ant-table-container
   > .ant-table-content

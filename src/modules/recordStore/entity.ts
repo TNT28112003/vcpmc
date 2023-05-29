@@ -1,8 +1,7 @@
 class RecordEntity {
   recordId: string = '';
-  name: string = '';
+  nameRecord: string = '';
   ISRC: string = '';
-  time: string = '';
   singer: string = '';
   author: string = '';
   category: string = '';

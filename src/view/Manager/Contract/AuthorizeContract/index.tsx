@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import SelectAndLabelComponent from '@shared/components/SelectAndLabelComponent';
 import { Link, useNavigate } from 'react-router-dom';
 import { arraySelectFilter } from './selectArray';
 import data from './fakeData.json';
-import { Col, Row, Table } from 'antd';
+import { Col, Row } from 'antd';
 import SearchComponent from '@shared/components/SearchComponent';
 import ModalCancellationReason from './components/ModalCancellationReason';
 import { ColumnsType } from 'antd/es/table';
+import useTable from '@shared/components/TableComponent/hook';
+import TableComponent from '@shared/components/TableComponent';
+import contractAuthorizePresenter from '@modules/contractAuthorize/presenter';
 
 const AuthorizeContract = () => {
+  const table = useTable();
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const [search, setSearch] = useState<string>('');
+  const [filter, setFilterOption] = useState<
+    { field: string | undefined; value: string | number | undefined }[]
+  >([{ field: 'authorized', value: 'all' }]);
+
+  const idChooses = '';
 
   const arrayAction: IArrayAction[] = [
     {
@@ -23,11 +33,10 @@ const AuthorizeContract = () => {
 
   interface DataType {
     id?: string;
-    NumberContract: string;
-    NameContract: string;
-    PersonAuthorized: string;
-    Mining: string;
-    Effect: string;
+    numberContract: string;
+    nameContract: string;
+    authorizationName: string;
+    authorized: string;
     createAt: string;
   }
 
@@ -40,23 +49,22 @@ const AuthorizeContract = () => {
     },
     {
       title: 'Số hợp đồng',
-      dataIndex: 'NumberContract',
-      key: 'NumberContract',
+      dataIndex: 'numberContract',
     },
     {
       title: 'Tên hợp đồng',
-      dataIndex: 'NameContract',
-      key: 'NameContract',
+      dataIndex: 'nameContract',
     },
     {
       title: 'Người ủy quyền',
-      key: 'PersonAuthorized',
-      dataIndex: 'PersonAuthorized',
+      dataIndex: 'authorizationName',
     },
     {
       title: 'Quyền sở hữu',
-      key: 'Mining',
-      dataIndex: 'Mining',
+      dataIndex: 'authorized',
+      render: (authorized: any) => {
+        return <>{authorized === 'Cá nhân' ? 'Người biểu diễn' : 'Nhà sản suất'}</>;
+      },
     },
 
     {
@@ -82,13 +90,12 @@ const AuthorizeContract = () => {
       dataIndex: 'createAt',
     },
     {
-      title: '',
-      key: 'update',
-      dataIndex: 'update',
-      render: () => {
+      title: ' ',
+      dataIndex: 'id',
+      render: (id: string) => {
         return (
           <Link
-            to={'/manager/contract/authorize/1'}
+            to={`/manager/contract/authorize/${id}`}
             style={{ color: '#FF7506', textDecoration: 'underline' }}
           >
             Xem chi tiết
@@ -97,24 +104,52 @@ const AuthorizeContract = () => {
       },
     },
     {
-      title: '',
-      key: 'listen',
-      dataIndex: 'listen',
+      title: ' ',
       render: () => {
-        return <a style={{ color: '#FF7506', textDecoration: 'underline' }}>Lý do hủy</a>;
+        return (
+          <a
+            onClick={() => setIsVisible(true)}
+            style={{ color: '#FF7506', textDecoration: 'underline' }}
+          >
+            Lý do hủy
+          </a>
+        );
       },
     },
   ];
 
+  const handleSearch = (searchKey: string) => {
+    setSearch(searchKey);
+  };
+
+  const onChangeSelectStatus = (name: string | undefined) => (status: any) => {
+    if (name && status) {
+      let filterTemp = filter;
+      let checkExist = filter.findIndex(obj => obj.field === name);
+
+      if (checkExist >= 0) {
+        filterTemp[checkExist].value = status;
+      } else {
+        filter.push({ field: name, value: status });
+      }
+
+      setFilterOption(filterTemp.map(fil => fil));
+    }
+  };
+
+  useEffect(() => {
+    table.fetchData({ option: { search: search, filter: filter } });
+  }, [search, filter, table]);
+
   return (
     <div className="">
       <Row>
-        <Col span={21}>
+        <Col span={22}>
           <div className="flex items-center justify-between">
             <div className="flex gap-x-[20px]">
               {arraySelectFilter.map(item => (
                 <SelectAndLabelComponent
-                  // onChange={onChangeSelectStatus(item.keyLabel)}
+                  onChange={onChangeSelectStatus(item.keyLabel)}
                   key={item.name}
                   className={`margin-select ${item.keyLabel}`}
                   dataString={item.dataString}
@@ -123,13 +158,21 @@ const AuthorizeContract = () => {
               ))}
             </div>
             <SearchComponent
-              // onSearch={handleSearch}
+              onSearch={handleSearch}
               placeholder={'Tên hợp đồng, số hợp đồng, người uỷ quyền...'}
               classNames="mb-0 search-table !w-[500px]"
             />
           </div>
           <div className="pb-[40px]">
-            <Table columns={columns} dataSource={data} />
+            <TableComponent
+              apiServices={contractAuthorizePresenter.getContractAuthorizes}
+              translateFirstKey="records"
+              rowKey={res => res[idChooses]}
+              register={table}
+              columns={columns}
+              // dataSource={data}
+              disableFirstCallApi={true}
+            />
           </div>
         </Col>
       </Row>

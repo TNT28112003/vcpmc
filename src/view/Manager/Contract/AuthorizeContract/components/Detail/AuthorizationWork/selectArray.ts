@@ -1,7 +1,7 @@
-import ISelect from "@core/select";
-import { ISelectAndLabel } from "@shared/components/SelectAndLabelComponent";
+import ISelect from '@core/select';
+import { ISelectAndLabel } from '@shared/components/SelectAndLabelComponent';
 
-const dataDevice: ISelect[] = [
+const dataStatus: ISelect[] = [
   { label: 'common.all', value: 'all' },
   { label: 'Mới', value: '' },
   { label: 'Còn thời hạn', value: '' },
@@ -9,5 +9,5 @@ const dataDevice: ISelect[] = [
   { label: 'Hủy', value: '' },
 ];
 export const arraySelectFilter: ISelectAndLabel[] = [
-  { textLabel: 'Tình trạng phê duyệt', dataString: dataDevice, keyLabel: 'device' },
+  { textLabel: 'Tình trạng phê duyệt', dataString: dataStatus, keyLabel: 'status' },
 ];

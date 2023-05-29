@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import ISelect from '@core/select';
-import { ReactSVG } from 'react-svg';
-import { downDropdown, upDropdown } from '@assets/svg';
+import DropdownIcon from '@assets/icon/dropdownIcon';
 
 const { Option } = Select;
 
@@ -93,13 +92,7 @@ const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLab
           defaultValue={props?.defaultValue ? props?.defaultValue : null}
           onChange={onChange}
           disabled={props.disabled}
-          suffixIcon={
-            dropdownStatus === false ? (
-              <ReactSVG src={downDropdown} />
-            ) : (
-              <ReactSVG src={upDropdown} />
-            )
-          }
+          suffixIcon={dropdownStatus === false ? <DropdownIcon /> : <DropdownIcon />}
           placeholder={props?.placeholder}
           dropdownClassName={props?.dropdownClassName}
           dropdownRender={menu => {

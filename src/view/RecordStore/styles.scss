@@ -1,5 +1,24 @@
 .record__page {
-  .ant-table-wrapper .ant-table-tbody > tr > td {
-    padding: 0.5rem !important;
+  .ant-segmented {
+    .ant-segmented-item-label {
+      padding: 0px 6px;
+    }
+    .ant-segmented-item-selected {
+      background-color: transparent;
+      box-shadow: none;
+  
+      .anticon svg {
+        color: var(--colorPrimary);
+        font-size: 2.4rem;
+        font-weight: 700;
+      }
+    }
+
+  }
+
+  .anticon svg {
+    color: #fff;
+    font-size: 2.4rem;
+    font-weight: 700;
   }
 }

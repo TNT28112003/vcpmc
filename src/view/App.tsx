@@ -40,7 +40,7 @@ export const initStyle: ThemeColors = {
   colorError: 'red',
   colorTextBase: '#000',
   colorTextLightSolid: '#fff',
-  colorTextBlue: '#001DB8',
+  colorTextBlue: '#347AFF',
   colorErrorBg: '#ff4d4f',
 };
 

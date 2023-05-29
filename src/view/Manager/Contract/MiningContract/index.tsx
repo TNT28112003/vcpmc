@@ -21,7 +21,7 @@ const MiningContract = () => {
   return (
     <div className="">
       <Row>
-        <Col span={21}>
+        <Col span={22}>
           <div className="flex items-center justify-between my-[20px]">
             <SearchComponent
               // onSearch={handleSearch}

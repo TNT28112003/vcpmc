@@ -1,6 +1,6 @@
 import React, { Key, useEffect, useState } from 'react';
 import MainTitleComponent from '@shared/components/MainTitleComponent';
-import { Col, Row } from 'antd';
+import { Col, Row, Segmented } from 'antd';
 import SearchComponent from '@shared/components/SearchComponent';
 import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,108 +10,21 @@ import SelectAndLabelComponent, {
 import data from './fakeData.json';
 
 import './styles.scss';
-import TableComponent from '@shared/components/TableComponent';
 import useTable from '@shared/components/TableComponent/hook';
-import recordPresenter from '@modules/recordStore/presenter';
 import ISelect from '@core/select';
-import { ColumnsType } from 'antd/es/table';
+import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons';
+import TableRecord from './components/TableRecord';
+import ListRecord from './components/ListRecord';
 
 const RecordStore = () => {
   const navigate = useNavigate();
   const table = useTable();
-
   const [search, setSearch] = useState<string>('');
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
+  const [isList, setIsList] = useState<string | number>('List');
   const idChooses = 'id';
   const [filter, setFilterOption] = useState<
     { field: string | undefined; value: string | number | undefined }[]
   >([{ field: 'category', value: 'all' }]);
-
-  interface DataType {
-    id?: string;
-    key?: number;
-    name: string;
-    ISRC: string;
-    time: string;
-    singer: string;
-    image: string;
-    video: string;
-    author: string;
-    format: string;
-    category: string;
-  }
-
-  const columns: ColumnsType<DataType> = [
-    {
-      title: 'STT',
-      dataIndex: 'STT',
-      render: (text, object, index) => <div> {index + 1}</div>,
-    },
-    {
-      title: 'Tên bản ghi',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Mã ISRC',
-      dataIndex: 'ISRC',
-    },
-    {
-      title: 'Thời lượng',
-      dataIndex: 'time',
-    },
-    {
-      title: 'Ca sĩ',
-      dataIndex: 'singer',
-    },
-    {
-      title: 'Tác giả',
-      dataIndex: 'author',
-    },
-    {
-      title: 'Thể loại',
-      dataIndex: 'category',
-    },
-    {
-      title: 'Định dạng',
-      dataIndex: 'format',
-    },
-    {
-      title: 'Thời hạn sử dụng',
-      dataIndex: 'usetime',
-      render: (action: any) => {
-        return (
-          <>
-            <div>
-              <div className="list_tag_time">
-                <div className="tag__cicrle" />
-                Còn thời hạn
-              </div>
-              07/10/2019
-            </div>
-          </>
-        );
-      },
-    },
-    {
-      title: ' ',
-      render: (_, { id }) => {
-        return (
-          <Link
-            to={`/edit-record/${id}`}
-            style={{ color: '#FF7506', textDecoration: 'underline' }}
-          >
-            Cập nhật
-          </Link>
-        );
-      },
-    },
-    {
-      title: ' ',
-      render: (_, { video }) => {
-        return <a style={{ color: '#FF7506', textDecoration: 'underline' }}>Nghe</a>;
-      },
-    },
-  ];
 
   const dataCategory: ISelect[] = [
     { label: 'common.all', value: 'all' },
@@ -123,7 +36,7 @@ const RecordStore = () => {
   const dataFormat: ISelect[] = [
     { label: 'common.all', value: 'all' },
     { label: 'common.device', value: 'Audio' },
-    { label: 'common.device', value: 'Video' },
+    { label: 'common.device', value: 'video/mp4' },
   ];
 
   const dataBrowsing: ISelect[] = [
@@ -145,10 +58,6 @@ const RecordStore = () => {
     { textLabel: 'Trạng thái:', dataString: dataStatus, keyLabel: 'status' },
   ];
 
-  useEffect(() => {
-    table.fetchData({ option: { search: search, filter: filter } });
-  }, [search, filter, table]);
-
   const handleSearch = (searchKey: string) => {
     setSearch(searchKey);
   };
@@ -157,7 +66,7 @@ const RecordStore = () => {
     {
       iconType: 'edit',
       name: 'Quản lí phê duyệt',
-      handleAction: () => navigate('manager/contract/add-authorize-contract'),
+      handleAction: () => navigate('/record-store/approve'),
     },
   ];
 
@@ -182,7 +91,7 @@ const RecordStore = () => {
         <MainTitleComponent title={'common.record'} classTitle="default-title" />
       </div>
       <Row>
-        <Col span={21}>
+        <Col span={22}>
           <div className="flex items-center justify-between my-[20px]">
             <SearchComponent
               onSearch={handleSearch}
@@ -190,28 +99,39 @@ const RecordStore = () => {
               classNames="mb-0 search-table !w-[400px]"
             />
           </div>
-          <div className="flex gap-x-[16px] my-[-20px]">
-            {arraySelectFilter.map(item => (
-              <SelectAndLabelComponent
-                onChange={onChangeSelectStatus(item.keyLabel)}
-                key={item.name}
-                className={`margin-select ${item.keyLabel}`}
-                dataString={item.dataString}
-                textLabel={item.textLabel}
-              />
-            ))}
+          <div className="flex justify-between">
+            <div className="flex gap-x-[16px] my-[-20px]">
+              {arraySelectFilter.map(item => (
+                <SelectAndLabelComponent
+                  onChange={onChangeSelectStatus(item.keyLabel)}
+                  key={item.name}
+                  className={`margin-select ${item.keyLabel}`}
+                  dataString={item.dataString}
+                  textLabel={item.textLabel}
+                />
+              ))}
+            </div>
+            <Segmented
+              onChange={(value: string | number) => setIsList(value)}
+              defaultValue={'List'}
+              options={[
+                {
+                  value: 'List',
+                  icon: <BarsOutlined />,
+                },
+                {
+                  value: 'Kanban',
+                  icon: <AppstoreOutlined />,
+                },
+              ]}
+            />
           </div>
           <div className="pb-[40px] mt-[20px]">
-            <TableComponent
-              apiServices={recordPresenter.getRecords}
-              translateFirstKey="records"
-              rowKey={res => res[idChooses]}
-              register={table}
-              columns={columns}
-              onRowSelect={setSelectedRowKeys}
-              // dataSource={data}
-              disableFirstCallApi={true}
-            />
+            {isList == 'List' ? (
+              <TableRecord table={table} search={search} filter={filter} idChooses={idChooses} />
+            ) : (
+              <ListRecord search={search} filter={filter} />
+            )}
           </div>
         </Col>
       </Row>

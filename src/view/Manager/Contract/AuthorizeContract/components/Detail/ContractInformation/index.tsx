@@ -3,28 +3,31 @@ import { Col, Row } from 'antd';
 
 import './styles.scss';
 import RightMenu, { IArrayAction } from '@layout/RightMenu';
-import { useNavigate } from 'react-router-dom';
-import ModalContractExtension from '../ModalContractExtension';
+import { useNavigate, useParams } from 'react-router-dom';
+import ModalContractExtension from './components/ModalContractExtension';
+import ModalCancellationContract from './components/ModalCancellationContract';
 
-const ContractInformation = () => {
+const ContractInformation = ({ data }) => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleCancel, setIsVisibleCancel] = useState(false);
+  const { id } = useParams();
 
   const arrayAction: IArrayAction[] = [
     {
       iconType: 'edit',
       name: 'Chỉnh sửa hợp đồng',
-      handleAction: () => navigate('manager/contract/add-authorize-contract'),
+      handleAction: () => navigate(`/manager/contract/edit-authorize-contract/${id}`),
     },
     {
       iconType: 'add',
       name: 'Gia hạn hợp đồng',
-      handleAction: () => navigate('manager/contract/add-authorize-contract'),
+      handleAction: () => setIsVisible(true),
     },
     {
       iconType: 'cancel',
       name: 'Hủy hợp đồng',
-      handleAction: () => setIsVisible(true),
+      handleAction: () => setIsVisibleCancel(true),
     },
   ];
 
@@ -37,19 +40,19 @@ const ContractInformation = () => {
               <div className="flex flex-col gap-y-[15px]">
                 <div className="flex">
                   <h3 className="w-[120px] font-semibold text-[13px]">Số hợp đồng:</h3>
-                  <p className="text-[13px] font-normal">BH123</p>
+                  <p className="text-[13px] font-normal">{data?.numberContract}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[120px] font-semibold text-[13px]">Tên hợp đồng:</h3>
-                  <p className="text-[13px] font-normal">Hợp đồng uỷ quyền tác phẩm âm nhạc</p>
+                  <p className="text-[13px] font-normal">{data?.nameContract}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[120px] font-semibold text-[13px]">Ngày hiệu lực:</h3>
-                  <p className="text-[13px] font-normal">01/05/2021</p>
+                  <p className="text-[13px] font-normal">{data?.effectiveDate}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[120px] font-semibold text-[13px]">Ngày hết hạn:</h3>
-                  <p className="text-[13px] font-normal">01/12/2021</p>
+                  <p className="text-[13px] font-normal">{data?.effectiveDate}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[120px] font-semibold text-[13px]">Tình trạng:</h3>
@@ -100,27 +103,27 @@ const ContractInformation = () => {
               <div className="flex flex-col gap-y-[15px]">
                 <div className="flex">
                   <h3 className="w-[170px] font-semibold text-[13px]">Pháp nhân uỷ quyền:</h3>
-                  <p className="text-[13px] font-normal">BH123</p>
+                  <p className="text-[13px] font-normal">{data?.authorized}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[170px] font-semibold text-[13px]">Tên người uỷ quyền:</h3>
-                  <p className="text-[13px] font-normal">Hợp đồng uỷ quyền tác phẩm âm nhạc</p>
+                  <p className="text-[13px] font-normal">{data?.authorizationName}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[170px] font-semibold text-[13px]">Ngày sinh:</h3>
-                  <p className="text-[13px] font-normal">01/05/2021</p>
+                  <p className="text-[13px] font-normal">{data?.DoB}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[170px] font-semibold text-[13px]">Giới tính:</h3>
-                  <p className="text-[13px] font-normal">01/12/2021</p>
+                  <p className="text-[13px] font-normal">{data?.gender}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[170px] font-semibold text-[13px]">Quốc tịch:</h3>
-                  <p className="text-[13px] font-normal">Còn thời hạn</p>
+                  <p className="text-[13px] font-normal">{data?.nationality}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[170px] font-semibold text-[13px]">Số điện thoại:</h3>
-                  <p className="text-[13px] font-normal">Còn thời hạn</p>
+                  <p className="text-[13px] font-normal">{data?.phone}</p>
                 </div>
               </div>
             </Col>
@@ -128,25 +131,23 @@ const ContractInformation = () => {
               <div className="flex flex-col gap-y-[15px]">
                 <div className="flex">
                   <h3 className="w-[130px] font-semibold text-[13px]">Số CMND/ CCCD:</h3>
-                  <p className="text-[13px] font-normal">123456789012</p>
+                  <p className="text-[13px] font-normal">{data?.CCCD}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[130px] font-semibold text-[13px]">Ngày cấp:</h3>
-                  <p className="text-[13px] font-normal">10/07/2011</p>
+                  <p className="text-[13px] font-normal">{data?.dateRange}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[130px] font-semibold text-[13px]">Nơi cấp:</h3>
-                  <p className="text-[13px] font-normal">Tp.HCM, Việt Nam</p>
+                  <p className="text-[13px] font-normal">{data?.issuedBy}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[130px] font-semibold text-[13px]">Mã số thuế:</h3>
-                  <p className="text-[13px] font-normal">92387489</p>
+                  <p className="text-[13px] font-normal">{data?.taxCode}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[130px] font-semibold text-[13px]">Nơi cư trú:</h3>
-                  <p className="text-[13px] font-normal w-[200px]">
-                    69/53, Nguyễn Gia Trí, Phường 25, Quận Bình Thạnh, Thành phố Hồ Chí Minh
-                  </p>
+                  <p className="text-[13px] font-normal w-[200px]">{data?.residence}</p>
                 </div>
               </div>
             </Col>
@@ -154,23 +155,23 @@ const ContractInformation = () => {
               <div className="flex flex-col gap-y-[15px]">
                 <div className="flex">
                   <h3 className="w-[152px] font-semibold text-[13px]">Email:</h3>
-                  <p className="text-[13px] font-normal">nguyenvana@gmail.com</p>
+                  <p className="text-[13px] font-normal">{data?.email}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[152px] font-semibold text-[13px]">Tài khoản đăng nhập:</h3>
-                  <p className="text-[13px] font-normal">nguyenvana@gmail.com</p>
+                  <p className="text-[13px] font-normal">{data?.userName}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[152px] font-semibold text-[13px]">Mật khẩu:</h3>
-                  <p className="text-[13px] font-normal">hetthuongcannho.doc</p>
+                  <p className="text-[13px] font-normal">{data?.password}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[152px] font-semibold text-[13px]">Số tài khoản:</h3>
-                  <p className="text-[13px] font-normal">1231123312211223</p>
+                  <p className="text-[13px] font-normal">{data?.accountNumber}</p>
                 </div>
                 <div className="flex">
                   <h3 className="w-[152px] font-semibold text-[13px]">Ngân hàng:</h3>
-                  <p className="text-[13px] font-normal">ACB - Ngân hàng Á Châu</p>
+                  <p className="text-[13px] font-normal">{data?.bank}</p>
                 </div>
               </div>
             </Col>
@@ -179,6 +180,10 @@ const ContractInformation = () => {
       </Row>
       <RightMenu arrayAction={arrayAction} />
       <ModalContractExtension isModalVisible={isVisible} setIsModalVisible={setIsVisible} />
+      <ModalCancellationContract
+        isModalVisible={isVisibleCancel}
+        setIsModalVisible={setIsVisibleCancel}
+      />
     </div>
   );
 };

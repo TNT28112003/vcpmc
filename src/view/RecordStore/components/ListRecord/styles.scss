@@ -1,0 +1,70 @@
+.list__record__page {
+  .ant-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .ant-pagination-item {
+      width: 22px;
+    }
+    .anticon svg {
+      font-size: 1.4rem;
+    }
+  }
+
+  .ant-card-bordered {
+    border: none !important;
+  }
+
+  .ant-card {
+    .ant-card-body {
+      padding: 1.6rem;
+      .name__record {
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+      }
+      p {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.8rem;
+      }
+      span {
+        font-weight: 400;
+        margin-left: 0.4rem;
+      }
+    }
+  }
+
+  .tags__record {
+    margin-top: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    span {
+      padding: 0.2rem 1rem;
+      border: 1px solid #727288 !important;
+      text-align: center;
+      border-radius: 0.8rem;
+      p {
+        font-size: 0.8rem !important;
+        font-weight: 700;
+        color: #727288 !important;
+      }
+      h6 {
+        margin-top: -0.5rem;
+        font-size: 12px;
+        font-weight: 500;
+        color: #fff;
+      }
+    }
+  }
+  .absc {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

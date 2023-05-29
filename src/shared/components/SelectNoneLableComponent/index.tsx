@@ -1,12 +1,12 @@
 import { Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-
+import './style.scss'
 import ISelect from '@core/select';
 
 const { Option } = Select;
 
-export interface ISelectAndLabel {
+export interface ISelectNoneLabel {
   disabled?: boolean;
   defaultValue?: any;
   dataString?: Array<ISelect>;
@@ -21,7 +21,7 @@ export interface ISelectAndLabel {
   translate?: boolean;
 }
 
-const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLabel) => {
+const SelectNoneLabelComponent: React.FC<ISelectNoneLabel> = (props: ISelectNoneLabel) => {
   const { keyLabel, dataString, translate } = props;
   const intl = useIntl();
   const [value, setValue] = useState(props.value);
@@ -64,7 +64,7 @@ const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLab
   }, [dataString, keyLabel, translate]);
 
   return (
-    <div className={`select-label-component ${className}`}>
+    <div className={`select-none-lable ${className}`}>
       <div className="label-select">
         <Select
           className={'select-custom ' + (props.classNameSelect || '')}
@@ -83,4 +83,4 @@ const SelectAndLabelComponent: React.FC<ISelectAndLabel> = (props: ISelectAndLab
   );
 };
 
-export default React.memo(SelectAndLabelComponent);
+export default React.memo(SelectNoneLabelComponent);

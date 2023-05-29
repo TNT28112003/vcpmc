@@ -21,6 +21,9 @@ function ListView(props: IListView) {
   const [pagination, setPagination] = useState({ pageSize: defaultPageSize, total: 0 });
   const onChange = (page: number, pageSize: number) => {
     apiServiceCall.execute({ pageSize, current: page }, filter).then((res: any) => {
+      console.log('====================================');
+      console.log(res.data);
+      console.log('====================================');
       setDataSource(res.data);
       setPagination(res.info);
     });
@@ -29,6 +32,9 @@ function ListView(props: IListView) {
   useEffect(() => {
     apiServiceCall.execute({ pageSize: defaultPageSize }, filter).then((res: any) => {
       setDataSource(res.data);
+      console.log('====================================');
+      console.log(res.data);
+      console.log('====================================');
       setPagination(res.info);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,6 +47,10 @@ function ListView(props: IListView) {
     return { defaultCurrent: 1, onChange, ...pagination };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSource, pagination]);
+
+  console.log('====================================');
+  console.log(dataSource);
+  console.log('====================================');
 
   return (
     <List

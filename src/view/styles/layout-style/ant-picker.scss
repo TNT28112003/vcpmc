@@ -139,9 +139,14 @@
   display: none;
 }
 .ant-picker {
-  box-shadow: 0rem 0rem 0.4rem #e3e3e3;
-  height: 4.2rem;
-  border-radius: 0.8rem;
+  height: 3.2rem;
+  border-radius: 0.6rem;
+  border-color: #727288;
+  color: #fff;
+
+  &:hover {
+    border-color: var(--colorTextBlue);
+  }
 
   .ant-picker-suffix {
     color: #bdbcbc;
@@ -149,6 +154,20 @@
     svg {
       width: 17.6px;
       height: 17.6px;
+      color: var(--colorPrimary);
     }
+  }
+}
+
+.ant-picker-focused {
+  border-color: var(--colorTextBlue);
+  box-shadow: none !important;
+}
+
+.ant-picker .ant-picker-input > input {
+  color: #fff;
+
+  &::placeholder {
+    color: #727288 !important;
   }
 }

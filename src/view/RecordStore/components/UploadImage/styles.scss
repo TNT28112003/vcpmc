@@ -1,0 +1,42 @@
+.avatar__box {
+  width: 15rem;
+  height: 15rem;
+  margin: auto;
+  border-radius: 50%;
+  .avatar__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    input#input-media {
+      display: none;
+    }
+    .button-icon-upload {
+      border: none;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      background: var(--colorTextBlue);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      right: 20%;
+      bottom: -2%;
+      transform: translateX(50%);
+
+      label {
+        color: #fff;
+        font-size: 2rem;
+        line-height: 0;
+        margin: 0;
+      }
+    }
+  }
+}

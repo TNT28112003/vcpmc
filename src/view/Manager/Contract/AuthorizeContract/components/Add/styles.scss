@@ -1,0 +1,34 @@
+input#input-media {
+  display: none;
+}
+.button-icon-upload {
+  background: transparent;
+  border: 1px solid #ffac69;
+  border-radius: 0.6rem;
+
+  label {
+    color: #ffac69;
+    font-size: 1.4rem;
+    display: flex;
+    padding: 0.6rem 1.4rem;
+    gap: 0.8rem;
+    margin: 0;
+  }
+}
+
+textarea.ant-input,
+.ant-input {
+  border-color: #727288;
+  color: #fff;
+  &:hover {
+    border-color: blue;
+  }
+  &:focus {
+    box-shadow: none;
+    border-color: blue;
+  }
+}
+
+textarea.ant-input {
+  border-color: #727288 !important;
+}

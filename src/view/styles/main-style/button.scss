@@ -4,7 +4,7 @@ button.ant-btn.normal-button,
 button.ant-btn.cancel-button,
 .normal-button {
   min-width: 15rem;
-  min-height: 4.8rem;
+  min-height: 4.2rem;
   border-radius: 0.8rem;
   font-weight: bold;
   font-size: $fs-2;
@@ -15,10 +15,50 @@ button.ant-btn.cancel-button,
   color: var(--colorTextLightSolid);
 }
 
-.delete-button {
-  // border: 1px solid var(--colorPrimary);
-  // color: var(--colorBgContainer);
-  // color: var(--colorPrimary);
+button.ant-btn.cancel-button {
+  background: transparent;
+  border: 1px solid var(--colorPrimary);
+  color: var(--colorPrimary);
+}
+
+.list__btn {
+  text-align: center;
+  margin-top: 40px;
+  margin-left: -60px;
+  margin-bottom: 40px;
+}
+
+.btn__cancel {
+  width: 144px;
+  height: 40px;
+  border: 1px solid #ff7506;
+  border-radius: 4px;
+  color: #ff7506;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: transparent;
+
+  &:hover {
+    border-color: #ff7506;
+    color: #ff7506;
+  }
+}
+
+.btn__save {
+  margin-left: 24px;
+  width: 144px;
+  height: 40px;
+  background: #ff7506;
+  border-radius: 4px;
+  border: 1px solid #ff7506;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 14px;
+
+  &:hover {
+    border-color: #ff7506;
+    color: #ffffff;
+  }
 }
 
 button.ant-btn.disabled-button {
@@ -43,7 +83,6 @@ button.ant-btn.bg-custom-button {
   border: none;
 }
 
-
 .button-center__box {
   text-align: center;
   button {
@@ -52,4 +91,3 @@ button.ant-btn.bg-custom-button {
     }
   }
 }
-

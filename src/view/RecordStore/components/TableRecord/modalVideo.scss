@@ -1,0 +1,25 @@
+.modal__video {
+  video {
+    border-radius: 0.8rem;
+  }
+  .ant-modal-content {
+    padding: 1.6rem;
+  }
+  .ant-modal-close {
+    top: 2.2rem;
+    right: 2.2rem;
+  }
+
+  .ant-modal-close-x {
+    width: auto;
+    height: auto;
+  }
+
+  .ant-modal-close-x svg {
+    border-radius: 50%;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0.5rem;
+    background-color: #fff;
+  }
+}

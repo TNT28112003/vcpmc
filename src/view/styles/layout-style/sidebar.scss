@@ -31,7 +31,7 @@ $padding-inside: 1rem;
   .logo {
     text-align: center;
     cursor: pointer;
-    
+
     img {
       border-radius: 50%;
       margin: 4rem auto;
@@ -203,6 +203,7 @@ $padding-inside: 1rem;
         }
       }
 
+      .ant-menu-item-selected,
       .ant-dropdown-trigger .item-label,
       .menu--component--item,
       .menu--component--item .menu-active {
@@ -217,7 +218,7 @@ $padding-inside: 1rem;
           i {
             color: var(--colorPrimary) !important;
           }
-          
+
           &::before {
             content: '';
             position: absolute;
@@ -243,7 +244,7 @@ $padding-inside: 1rem;
 
         .icon-3dot svg {
           color: var(--colorLink);
-        } 
+        }
 
         .icon-3dot {
           color: var(--colorLink);
@@ -291,4 +292,39 @@ $padding-inside: 1rem;
 
 .sider-component-pointer {
   cursor: pointer;
+}
+
+.ant-dropdown .ant-dropdown-menu {
+  background-color: #30303f;
+  margin-top: -52px;
+
+  .ant-dropdown-menu-item {
+    color: #fff;
+
+    &:hover {
+      background-color: var(--colorPrimary);
+    }
+  }
+}
+
+.menu-active {
+  & {
+    .item-hover__icon,
+    .icon-3dot > svg,
+    svg,
+    span,
+    a,
+    i {
+      color: var(--colorPrimary) !important;
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 52px;
+    background-color: var(--colorPrimary);
+    border-radius: 3px;
+    left: 0;
+  }
 }
