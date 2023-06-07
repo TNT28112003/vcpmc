@@ -22,7 +22,7 @@ export const columns: ColumnsType<DataType> = [
   },
   {
     title: 'Tên bản ghi',
-    dataIndex: 'name',
+    dataIndex: 'nameRecord',
   },
   {
     title: 'Mã ISRC',

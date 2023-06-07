@@ -1,0 +1,48 @@
+[
+  {
+    "id": "1",
+    "key": "1",
+    "name": "Nguyen Van A",
+    "role": "admin",
+    "email": "nguyenvanb@gmail.com",
+    "userName": "nguyenvanb",
+    "lastUpdate": "21/04/2021",
+    "status": true
+  },
+  {
+    "id": "2",
+    "name": "Nguyen Van B",
+    "role": "admin",
+    "email": "nguyenvanb@gmail.com",
+    "userName": "nguyenvanb",
+    "lastUpdate": "21/04/2021",
+    "status": true
+  },
+  {
+    "id": "3",
+    "name": "Nguyen Van C",
+    "role": "admin",
+    "email": "nguyenvanb@gmail.com",
+    "userName": "nguyenvanb",
+    "lastUpdate": "21/04/2021",
+    "status": false
+  },
+  {
+    "id": "4",
+    "name": "Nguyen Van D",
+    "role": "admin",
+    "email": "nguyenvanb@gmail.com",
+    "userName": "nguyenvanb",
+    "lastUpdate": "21/04/2021",
+    "status": true
+  },
+  {
+    "id": "5",
+    "name": "Nguyen Van E",
+    "role": "admin",
+    "email": "nguyenvanb@gmail.com",
+    "userName": "nguyenvanb",
+    "lastUpdate": "21/04/2021",
+    "status": false
+  }
+]

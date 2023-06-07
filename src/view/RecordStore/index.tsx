@@ -28,27 +28,27 @@ const RecordStore = () => {
 
   const dataCategory: ISelect[] = [
     { label: 'common.all', value: 'all' },
-    { label: 'common.device', value: 'Pop' },
-    { label: 'EDM', value: '' },
-    { label: 'Ballad', value: '' },
+    { label: 'common.pop', value: 'Pop' },
+    { label: 'common.EDM', value: 'EDM' },
+    { label: 'common.ballad', value: 'Ballad' },
   ];
 
   const dataFormat: ISelect[] = [
     { label: 'common.all', value: 'all' },
-    { label: 'common.device', value: 'Audio' },
-    { label: 'common.device', value: 'video/mp4' },
+    { label: 'common.audio', value: 'Audio' },
+    { label: 'common.video', value: 'video/mp4' },
   ];
 
   const dataBrowsing: ISelect[] = [
     { label: 'common.all', value: 'all' },
-    { label: 'Duyệt bởi người dùng', value: '' },
-    { label: 'Duyệt tự động', value: '' },
+    { label: 'common.browsing.user', value: '' },
+    { label: 'common.browsing.auto', value: '' },
   ];
 
   const dataStatus: ISelect[] = [
     { label: 'common.all', value: 'all' },
-    { label: 'common.device', value: '1' },
-    { label: 'Hết hạn', value: '0' },
+    { label: 'common.status.time.left', value: '1' },
+    { label: 'common.status.expirede', value: '0' },
   ];
 
   const arraySelectFilter: ISelectAndLabel[] = [

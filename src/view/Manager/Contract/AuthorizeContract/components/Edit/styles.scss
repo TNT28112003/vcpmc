@@ -1,0 +1,21 @@
+.spin_loading {
+  width: 97%;
+  height: 82%;
+  background: #0000;
+  text-align: center;
+  position: absolute;
+  z-index: 9;
+
+  .ant-spin-dot {
+    font-size: 20px;
+    width: 2em;
+    height: 2em;
+    top: 9rem;
+
+    .ant-spin-dot-item {
+      width: 2rem;
+      height: 2rem;
+      background-color: #ff7506;
+    }
+  }
+}

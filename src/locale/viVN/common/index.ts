@@ -1,5 +1,26 @@
 export default {
   'common.empty': ' ',
+
+  'common.playlist.sample': 'Playlist mẫu',
+
+  'common.category': 'Thể loại',
+  'common.pop': 'Pop',
+  'common.EDM': 'EDM',
+  'common.ballad': 'Ballad',
+  'common.audio': 'Audio',
+  'common.video': 'Video',
+
+  'common.browsing.user': 'Duyệt bởi người dùng',
+  'common.browsing.auto': 'Duyệt tự động',
+
+  'common.performers': 'Người biểu diễn',
+  'common.producer': 'Nhà sản xuất',
+
+  'common.status.time.left': 'Còn thời hạn',
+  'common.status.expirede': 'Hết hạn',
+  'common.status.new': 'Mới',
+  'common.status.cancel': 'Hủy',
+
   'common.action': 'Thao tác',
   'common.save': 'Lưu',
   'common.cancel': 'Hủy',
@@ -69,7 +90,7 @@ export default {
   'common.input.placeholder': 'Vui lòng nhập {label}',
   'common.status.param':
     '{status,select, 0 {Chưa phê duyệt} 1 {Đã phê duyệt} 2 {Từ chối} other {Không xác định}}',
-  'common.status.new': 'Chưa phê duyệt',
+  'common.status.new.approval': 'Chưa phê duyệt',
   'common.status.approval': 'Đã phê duyệt',
   'common.approval': 'Phê duyệt',
   'common.file-back': 'Thu hồi',
@@ -115,7 +136,7 @@ export default {
 
   'common.report': 'Báo cáo',
 
-  'common.playlist' : 'Danh sách phát',
+  'common.playlist': 'Danh sách phát',
 
   'common.revenue': 'Doanh thu',
   'common.revenue.sales': 'Báo cáo doanh thu',

@@ -7,12 +7,13 @@ import { useAltaIntl } from '@hook/useTranslate';
 import ButtonForm from '@shared/components/ButtonForm';
 
 interface IChangePassWord {
+  id?: string;
   isModalVisible: boolean;
   setIsModalVisible: (arg: any) => void;
 }
 
 const ModalCancellationReason = (props: IChangePassWord) => {
-  const { isModalVisible, setIsModalVisible } = props;
+  const { isModalVisible, setIsModalVisible, id } = props;
   const { formatMessage } = useAltaIntl();
   const [form] = useForm();
 

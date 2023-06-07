@@ -39,7 +39,7 @@ const EditPlayList = () => {
     {
       iconType: 'add',
       name: 'Thêm bản ghi',
-      handleAction: () => navigate('/record/approve'),
+      handleAction: () => navigate('/playlist/add-record'),
     },
   ];
 

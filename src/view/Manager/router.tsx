@@ -54,6 +54,20 @@ export const routerManagerDevice: IRouter = {
   },
 };
 
+export const routerManagerAddDevice: IRouter = {
+  path: '/manager/device/add-device',
+  name: 'common.management.device',
+  loader: import('./Device/components/AddDevice'),
+  exact: true,
+};
+
+export const routerManagerDetailDevice: IRouter = {
+  path: '/manager/device/:id',
+  name: 'common.management.device',
+  loader: import('./Device/components/Details'),
+  exact: true,
+};
+
 export const routerManagerAuthorization: IRouter = {
   path: '/manager/authorization',
   name: 'common.management.authorization',
@@ -64,6 +78,13 @@ export const routerManagerAuthorization: IRouter = {
     activePath: /manager\/authorization/i,
     hideInNavbar: false,
   },
+};
+
+export const routerManagerUpdateAuthorization: IRouter = {
+  path: '/manager/authorization/:id',
+  name: 'common.management.contract',
+  loader: import('./Authorization/Update'),
+  exact: true,
 };
 
 export const routerManagerUnitsUsed: IRouter = {
@@ -78,6 +99,34 @@ export const routerManagerUnitsUsed: IRouter = {
   },
 };
 
+export const routerManagerUnitsUsedDetails: IRouter = {
+  path: '/manager/units-used/:id',
+  name: 'common.management.contract',
+  loader: import('./UnitUsed/components/Details'),
+  exact: true,
+};
+
+export const routerManagerUnitsUsedDetailsInfo: IRouter = {
+  path: '/manager/units-used/info/:id',
+  name: 'common.management.contract',
+  loader: import('./UnitUsed/components/Details/components/Info'),
+  exact: true,
+};
+
+export const routerManagerUnitsUsedEdit: IRouter = {
+  path: '/manager/units-used/info/edit/:id',
+  name: 'common.management.contract',
+  loader: import('./UnitUsed/components/Details/components/Edit'),
+  exact: true,
+};
+
+export const routerManagerUnitsUsedAdd: IRouter = {
+  path: '/manager/units-used/add',
+  name: 'common.management.contract',
+  loader: import('./UnitUsed/components/Add'),
+  exact: true,
+};
+
 export const routerManager: IRouter = {
   path: '/manager',
   name: 'common.management',
@@ -90,13 +139,24 @@ export const routerManager: IRouter = {
     hideInNavbar: false,
   },
   routes: [
-    routerManagerAuthorization,
     routerManagerContract,
+
     routerManagerDevice,
+    routerManagerAddDevice,
+    routerManagerDetailDevice,
+
     routerManagerUnitsUsed,
+    routerManagerUnitsUsedDetails,
+    routerManagerUnitsUsedAdd,
+    routerManagerUnitsUsedDetailsInfo,
+    routerManagerUnitsUsedEdit,
+
     routerManagerDetails,
     routerManagerAddContractAuthorize,
     routerManagerEditContractAuthorize,
     routerManagerAddRecord,
+
+    routerManagerAuthorization,
+    routerManagerUpdateAuthorization,
   ],
 };

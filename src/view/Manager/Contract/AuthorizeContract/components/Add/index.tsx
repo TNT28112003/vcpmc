@@ -12,9 +12,9 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import UploadIcon from '@assets/icon/upload';
 import contractAuthorizePresenter from '@modules/contractAuthorize/presenter';
 import { useSingleAsync } from '@shared/hook/useAsync';
+import moment from 'moment';
 
 dayjs.extend(customParseFormat);
-const dateFormat = 'DD/MM/YYYY';
 
 const AddAuthorize = () => {
   const [form] = useForm();
@@ -34,6 +34,14 @@ const AddAuthorize = () => {
     navigate('/manager/contract');
   };
 
+  const successNotification = (description: string) => {
+    api.success({
+      message: 'SUCESS',
+      description: description,
+      placement: 'top',
+    });
+  };
+
   const openNotification = (description: string) => {
     api.error({
       message: 'ERROR',
@@ -43,9 +51,6 @@ const AddAuthorize = () => {
   };
 
   const dateNow = new Date();
-  console.log('====================================');
-  console.log(dateNow.toLocaleString('en-GB', { timeZone: 'UTC' }));
-  console.log('====================================');
 
   const handleAddContract = values => {
     const newContract = values;
@@ -54,14 +59,17 @@ const AddAuthorize = () => {
     newContract['expirationDate'] = expirationDate;
     newContract['DoB'] = DoB;
     newContract['dateRange'] = dateRange;
-    newContract['createAt'] = dateNow.toLocaleString('en-GB', { timeZone: 'UTC' });
+    newContract['createDate'] = dateNow;
     newContractAuthorize
       .execute(newContract)
       .then(response => {
-        if (response.status) navigate('/manager/contract/add-record');
+        if (response.status) {
+          successNotification('Thêm thành công');
+          navigate('/manager/contract/add-record');
+        }
       })
-      .catch(() => {
-        openNotification('Đã có lỗi sảy ra');
+      .catch((err) => {
+        openNotification(err.message);
       });
   };
 
@@ -99,7 +107,6 @@ const AddAuthorize = () => {
                 <DatePicker
                   name="effectiveDate"
                   className="!w-[210px]"
-                  format={dateFormat}
                   onChange={(date, dateString) => {
                     setEffectiveDate(dateString);
                   }}
@@ -112,7 +119,6 @@ const AddAuthorize = () => {
                 <DatePicker
                   name="expirationDate"
                   className="!w-[210px]"
-                  format={dateFormat}
                   onChange={(date, dateString) => {
                     setExpirationDate(dateString);
                   }}
@@ -207,7 +213,6 @@ const AddAuthorize = () => {
                   onChange={(date, dateString) => {
                     setDoB(dateString);
                   }}
-                  format={dateFormat}
                 />
               </div>
               <div className="flex items-center mb-[16px]">
@@ -241,7 +246,6 @@ const AddAuthorize = () => {
                 <DatePicker
                   name="dateRange"
                   className="!w-[210px]"
-                  format={dateFormat}
                   onChange={(date, dateString) => {
                     setDateRange(dateString);
                   }}

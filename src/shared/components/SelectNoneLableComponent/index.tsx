@@ -1,7 +1,7 @@
 import { Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import './style.scss'
+import './style.scss';
 import ISelect from '@core/select';
 
 const { Option } = Select;
@@ -22,7 +22,7 @@ export interface ISelectNoneLabel {
 }
 
 const SelectNoneLabelComponent: React.FC<ISelectNoneLabel> = (props: ISelectNoneLabel) => {
-  const { keyLabel, dataString, translate } = props;
+  const { keyLabel, dataString = [], translate } = props;
   const intl = useIntl();
   const [value, setValue] = useState(props.value);
 
@@ -37,7 +37,7 @@ const SelectNoneLabelComponent: React.FC<ISelectNoneLabel> = (props: ISelectNone
     }
   };
   const className = props.className ? props.className : '';
-  const all = intl.formatMessage({ id: 'common.all' });
+  const all = intl.formatMessage({ id: dataString[0].label });
 
   const renderUIOption = React.useMemo(() => {
     if (dataString == null) {

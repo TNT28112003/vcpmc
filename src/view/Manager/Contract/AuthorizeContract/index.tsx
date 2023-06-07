@@ -11,11 +11,13 @@ import { ColumnsType } from 'antd/es/table';
 import useTable from '@shared/components/TableComponent/hook';
 import TableComponent from '@shared/components/TableComponent';
 import contractAuthorizePresenter from '@modules/contractAuthorize/presenter';
+import CircleLabel from '@shared/components/CircleLabel';
+import moment from 'moment';
 
 const AuthorizeContract = () => {
   const table = useTable();
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const [filter, setFilterOption] = useState<
     { field: string | undefined; value: string | number | undefined }[]
@@ -69,28 +71,46 @@ const AuthorizeContract = () => {
 
     {
       title: 'Hiệu lực hợp đồng',
-      key: 'Effect',
-      dataIndex: 'Effect',
-      render: (action: any) => {
-        return (
-          <>
-            <div>
-              <div className="list_tag_time">
-                <div className="tag__cicrle" />
-                Còn thời hạn
-              </div>
+      dataIndex: ['expirationDate', 'createDate'],
+      render: (text, row) => {
+        // thoi gian 3 ngay
+        const duration = 259200000;
+        const dateNow = new Date();
+        const expirationDateNew = new Date(row['expirationDate']);
+        const createAtNew = new Date((row['createDate'] = moment().format()));
+        // kiem tra con thoi han hay khong
+        const isTineLeft = dateNow.getTime() - expirationDateNew.getTime();
+        // kiem tra hop dong moi tao
+        const checkNew = dateNow.getTime() - createAtNew.getTime();
+
+        if (checkNew < duration)
+          return (
+            <div className="flex justify-center">
+              <CircleLabel text={'Mới'} colorCode="green" />
             </div>
-          </>
+          );
+        return isTineLeft > 0 ? (
+          <div className="flex justify-center">
+            <CircleLabel text={'Còn thời hạn'} colorCode="blue" />
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <CircleLabel text={'Hết thời hạn'} colorCode="grey" />
+          </div>
         );
       },
     },
     {
       title: 'Ngày tạo',
-      key: 'createAt',
-      dataIndex: 'createAt',
+      key: 'createDate',
+      dataIndex: 'createDate',
+      render: createAt => {
+        createAt = moment().format('YYYY-MM-DD HH:mm:ss');
+        return <>{createAt}</>;
+      },
     },
     {
-      title: ' ',
+      title: 'common.empty',
       dataIndex: 'id',
       render: (id: string) => {
         return (
@@ -104,15 +124,24 @@ const AuthorizeContract = () => {
       },
     },
     {
-      title: ' ',
-      render: () => {
+      title: 'common.empty',
+      dataIndex: 'cancellationReason',
+      render: cancellationReason => {
         return (
-          <a
-            onClick={() => setIsVisible(true)}
-            style={{ color: '#FF7506', textDecoration: 'underline' }}
-          >
-            Lý do hủy
-          </a>
+          <>
+            {cancellationReason == null || undefined ? (
+              ''
+            ) : (
+              <a
+                onClick={() => {
+                  setIsVisible(true);
+                }}
+                style={{ color: '#FF7506', textDecoration: 'underline' }}
+              >
+                Lý do hủy
+              </a>
+            )}
+          </>
         );
       },
     },

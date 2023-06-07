@@ -68,20 +68,24 @@
 }
 
 //====================RADIO===================
+
+.ant-radio-wrapper {
+  color: #fff;
+}
 .ant-radio-inner {
   width: 2.4rem;
   height: 2.4rem;
-  border-color: var(--colorTextBlue);
+  border-color: var(--colorTextBlue) !important;
 }
 
 .ant-radio-inner::after {
   width: 1.6rem;
   height: 1.6rem;
-  background-color: var(--colorTextBlue);
+  background-color: var(--colorTextBlue) !important;
 }
 
 .ant-radio-checked .ant-radio-inner {
-  border-color: var(--colorTextBlue);
+  border-color: var(--colorTextBlue) !important;
 }
 
 :where(.css-dev-only-do-not-override-1cdxnqz).ant-checkbox-wrapper:not(
@@ -89,6 +93,11 @@
   ):hover
   .ant-checkbox-checked:not(.ant-checkbox-disabled)
   .ant-checkbox-inner {
-  background-color: var(--colorTextBlue);
-  border-color: var(--colorTextBlue);
+  background-color: var(--colorTextBlue) !important;
+  border-color: var(--colorTextBlue) !important;
+}
+
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  background-color: transparent !important;
+  border-color: var(--colorTextBlue) !important;
 }

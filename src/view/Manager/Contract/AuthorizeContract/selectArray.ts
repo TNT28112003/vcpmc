@@ -3,15 +3,15 @@ import { ISelectAndLabel } from '@shared/components/SelectAndLabelComponent';
 
 const dataOwnership: ISelect[] = [
   { label: 'common.all', value: 'all' },
-  { label: 'Người biểu diễn', value: 'Cá nhân' },
-  { label: 'Nhà sẵn suất', value: 'Tổ chức' },
+  { label: 'common.performers', value: 'Cá nhân' },
+  { label: 'common.producer', value: 'Tổ chức' },
 ];
 const dataContract: ISelect[] = [
   { label: 'common.all', value: 'all' },
-  { label: 'Mới', value: '' },
-  { label: 'Còn thời hạn', value: '' },
-  { label: 'Hết hạn', value: '' },
-  { label: 'Hủy', value: '' },
+  { label: 'common.status.new', value: 'Mới' },
+  { label: 'common.status.time.left', value: 'Còn thời hạn' },
+  { label: 'common.status.expirede', value: 'Hết hạn' },
+  { label: 'common.status.cancel', value: 'Hủy' },
 ];
 export const arraySelectFilter: ISelectAndLabel[] = [
   { textLabel: 'Quyền sở hữu', dataString: dataOwnership, keyLabel: 'authorized' },

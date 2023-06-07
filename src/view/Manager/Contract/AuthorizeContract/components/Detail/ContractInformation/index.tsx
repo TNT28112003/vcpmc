@@ -6,6 +6,8 @@ import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import { useNavigate, useParams } from 'react-router-dom';
 import ModalContractExtension from './components/ModalContractExtension';
 import ModalCancellationContract from './components/ModalCancellationContract';
+import moment from 'moment';
+import CircleLabel from '@shared/components/CircleLabel';
 
 const ContractInformation = ({ data }) => {
   const navigate = useNavigate();
@@ -30,6 +32,15 @@ const ContractInformation = ({ data }) => {
       handleAction: () => setIsVisibleCancel(true),
     },
   ];
+
+  const duration = 259200000;
+  const dateNow = new Date();
+  const expirationDateNew = new Date(data?.expirationDate);
+  const createAtNew = new Date(data?.createDate.toMillis());
+  // kiem tra con thoi han hay khong
+  const isTineLeft = dateNow.getTime() - expirationDateNew.getTime();
+  // kiem tra hop dong moi tao
+  const checkNew = dateNow.getTime() - createAtNew.getTime();
 
   return (
     <div className="mt-[25px]">
@@ -56,7 +67,15 @@ const ContractInformation = ({ data }) => {
                 </div>
                 <div className="flex">
                   <h3 className="w-[120px] font-semibold text-[13px]">Tình trạng:</h3>
-                  <p className="text-[13px] font-normal">Còn thời hạn</p>
+                  <p className="text-[13px] font-normal">
+                    {checkNew < duration ? (
+                      <CircleLabel text={'Mới'} colorCode="green" />
+                    ) : isTineLeft < 0 ? (
+                      <CircleLabel text={'Còn thời hạn'} colorCode="blue" />
+                    ) : (
+                      <CircleLabel text={'Hết thời hạn'} colorCode="grey" />
+                    )}
+                  </p>
                 </div>
               </div>
             </Col>

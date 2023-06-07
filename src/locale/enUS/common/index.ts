@@ -1,6 +1,26 @@
 export default {
-  'common.playlist': 'Playlist',
   'common.empty': '',
+
+  'common.playlist': 'Playlist',
+  'common.playlist.sample': 'Sample playlist',
+
+  'common.category': 'Category',
+  'common.pop': 'Pop',
+  'common.EDM': 'EDM',
+  'common.ballad': 'ballad',
+  'common.audio': 'Audio',
+  'common.video': 'Video',
+  'common.browsing.user': 'Browsing by users',
+  'common.browsing.auto': 'Automatic browsing',
+
+  'common.performers': 'Performers',
+  'common.producer': 'Producer',
+
+  'common.status.time.left': 'Time left',
+  'common.status.expirede': 'Expired',
+  'common.status.new': 'New',
+  'common.status.cancel': 'Cancel',
+
   'common.save': 'Save',
   'common.cancel': 'Cancel',
   'common.home': 'Home page',
@@ -60,7 +80,7 @@ export default {
   'common.invalid': 'Malformed.',
   'common.input.placeholder': 'Please enter {label}',
   'common.status.param': '{status,select, 0 {Unproven} 1 {Approved} 2 {Refuse} other {Unknown}}',
-  'common.status.new': 'Not approved',
+  'common.status.new.approval': 'Not approved',
   'common.status.approval': 'Approved',
   'common.approval': 'Approve',
   'common.file-back': 'Recall',

@@ -14,6 +14,8 @@ import type { InputRef } from 'antd';
 import { Tag, theme } from 'antd';
 import { TweenOneGroup } from 'rc-tween-one';
 import UploadIcon from '@assets/icon/upload';
+import { onValue, ref, set } from 'firebase/database';
+import { database } from 'src/firebase/firebase.config';
 
 interface DataType {
   id: string;
@@ -23,6 +25,46 @@ interface DataType {
   arrayRecord: [];
 }
 
+const columns: ColumnsType<DataType> = [
+  {
+    title: 'STT',
+    dataIndex: 'STT',
+    render: (text, object, index) => <div> {index + 1}</div>,
+  },
+  {
+    title: 'Tên bản ghi',
+    dataIndex: 'nameRecord',
+  },
+  {
+    title: 'Ca sĩ',
+    dataIndex: 'singer',
+  },
+  {
+    title: 'tác giả',
+    dataIndex: 'author',
+  },
+  {
+    title: 'common.empty',
+    render: (_, { id }) => {
+      return (
+        <Link to={`/playlist/${id}`} style={{ color: '#FF7506', textDecoration: 'underline' }}>
+          Nghe
+        </Link>
+      );
+    },
+  },
+  {
+    title: 'common.empty',
+    render: (_, { id }) => {
+      return (
+        <Link to={`/playlist/${id}`} style={{ color: '#FF7506', textDecoration: 'underline' }}>
+          Gỡ
+        </Link>
+      );
+    },
+  },
+];
+
 const AddPlayList = () => {
   const idChooses = 'id';
   const navigate = useNavigate();
@@ -30,56 +72,13 @@ const AddPlayList = () => {
   const [filter, setFilterOption] = useState<
     { field: string | undefined; value: string | number | undefined }[]
   >([{ field: 'category', value: 'all' }]);
-
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
+  const [data, setData] = useState();
 
   const arrayAction: IArrayAction[] = [
     {
       iconType: 'add',
       name: 'Thêm bản ghi',
       handleAction: () => navigate('/playlist/add-record'),
-    },
-  ];
-
-  const columns: ColumnsType<DataType> = [
-    {
-      title: 'STT',
-      dataIndex: 'STT',
-      render: (text, object, index) => <div> {index + 1}</div>,
-    },
-    {
-      title: 'Tên bản ghi',
-      dataIndex: 'nameRecord',
-    },
-    {
-      title: 'Ca sĩ',
-      dataIndex: 'singer',
-    },
-    {
-      title: 'tác giả',
-      dataIndex: 'author',
-    },
-    {
-      title: ' ',
-      render: (_, { id }) => {
-        return (
-          <Link to={`/playlist/${id}`} style={{ color: '#FF7506', textDecoration: 'underline' }}>
-            Nghe
-          </Link>
-        );
-      },
-    },
-    {
-      title: ' ',
-      render: (_, { id }) => {
-        return (
-          <Link to={`/playlist/${id}`} style={{ color: '#FF7506', textDecoration: 'underline' }}>
-            Gỡ
-          </Link>
-        );
-      },
     },
   ];
 
@@ -152,12 +151,35 @@ const AddPlayList = () => {
     width: '100%',
   };
 
+  const addData = () => {
+    set(ref(database, 'contracts/' + '567898'), {
+      nameContract: 'Hợp Đồng Âm Nhạc',
+      recordsApprove: [
+        {
+          nameRecords: 'Thiên ý',
+          videoURL: 'https://www.youtube.com/watch?v=WmqDcS6USiI',
+        },
+        {
+          nameRecords: 'Thiên ý',
+          videoURL: 'https://www.youtube.com/watch?v=WmqDcS6USiI',
+        },
+      ],
+    })
+      .then(() => {
+        alert('Add data successfully');
+      })
+      .catch((err: any) => {
+        alert('Error: ' + err.message);
+      });
+  };
+
   return (
     <div className="pb-[40px]">
       <MainTitleComponent
         breadcrumbs={[routerViewPlaylist, routerViewPlaylistAdd]}
         title={'Thêm Playlist'}
       />
+      <button onClick={addData}>Test</button>
       <Form>
         <Row gutter={20} className="mt-[20px]">
           <Col span={5}>
@@ -253,7 +275,7 @@ const AddPlayList = () => {
               rowKey={res => res[idChooses]}
               register={table}
               columns={columns}
-              // dataSource={data}
+              dataSource={data}
               // disableFirstCallApi={true}
             />
             <div className="mt-[40px] pb-[40px]">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Table } from 'antd';
+import { Row, Col } from 'antd';
 import data from './fakeData.json';
 import MainTitleComponent from '@shared/components/MainTitleComponent';
 import SelectNoneLableComponent from '@shared/components/SelectNoneLableComponent';
@@ -9,14 +9,30 @@ import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import './styles.scss';
 import ModalDeleteDevice from './components/ModalDeleteDevice';
 import { ColumnsType } from 'antd/es/table';
+import TableComponent from '@shared/components/TableComponent';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
+
+interface DataType {
+  key: React.Key;
+  id: string;
+  name: string;
+  status: number;
+  address: string;
+  contractTerm: string;
+  macAddress: string;
+  memory: string;
+}
 
 const Device: React.FC = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   const arrayAction: IArrayAction[] = [
     {
       iconType: 'add',
       name: 'Thêm thiết bị',
+      handleAction: () => navigate('/manager/device/add-device'),
     },
     {
       iconType: 'power',
@@ -32,17 +48,6 @@ const Device: React.FC = () => {
       handleAction: () => setIsVisible(true),
     },
   ];
-
-  interface DataType {
-    key: React.Key;
-    id: string;
-    name: string;
-    status: number;
-    address: string;
-    contractTerm: string;
-    macAddress: string;
-    memory: string;
-  }
 
   const columns: ColumnsType<DataType> = [
     {
@@ -68,6 +73,20 @@ const Device: React.FC = () => {
     {
       title: 'Memory',
       dataIndex: 'memory',
+    },
+    {
+      title: 'common.empty',
+      dataIndex: 'id',
+      render: (id: string) => {
+        return (
+          <Link
+            to={`/manager/device/${id}`}
+            style={{ color: '#FF7506', textDecoration: 'underline' }}
+          >
+            Xem chi tiết
+          </Link>
+        );
+      },
     },
   ];
 
@@ -101,7 +120,7 @@ const Device: React.FC = () => {
             />
           </div>
           <div className="pb-[40px]">
-            <Table
+            <TableComponent
               rowSelection={{
                 ...rowSelection,
               }}

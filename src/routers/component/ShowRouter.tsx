@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
-import { Route } from 'react-router';
+import { Navigate, Route } from 'react-router';
 import { CheckPermissionFunc } from 'src/shared/hoc/CheckPermission';
 
 import { RootState } from '@modules';
@@ -21,17 +21,21 @@ const renderRoute = (
   if (hasMaster === false) {
     return <Route key={path} path={path} element={<DynamicComponent />} />;
   }
+
   if (MasterLayout) {
     return (
-      <Route
-        key={path}
-        path={path}
-        element={
-          <MasterLayout>
-            <DynamicComponent />
-          </MasterLayout>
-        }
-      />
+      <>
+        <Route path="/" element={<Navigate to="/record-store" />} />
+        <Route
+          key={path}
+          path={path}
+          element={
+            <MasterLayout>
+              <DynamicComponent />
+            </MasterLayout>
+          }
+        />
+      </>
     );
   } else {
     return <Route key={path} path={path} element={<DynamicComponent />} />;

@@ -43,6 +43,7 @@ const Details = () => {
 
   return (
     <div className="manager__contract__page">
+      {contextHolder}
       <div className="mb-[20px]">
         <MainTitleComponent
           breadcrumbs={[routerManager, routerManagerDetails]}

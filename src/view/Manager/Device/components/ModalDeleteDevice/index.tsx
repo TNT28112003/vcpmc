@@ -45,7 +45,7 @@ const ModalDeleteDevice = (props: IDeleteDevice) => {
         />
       }
     >
-      <p>Bạn có chắc chắn muốn xoá các thiết bị này? Hành động này không thể hoàn tác.</p>
+      <p className='text-white text-[16px]'>Bạn có chắc chắn muốn xoá các thiết bị này? Hành động này không thể hoàn tác.</p>
     </Modal>
   );
 };

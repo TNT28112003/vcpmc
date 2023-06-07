@@ -1,7 +1,7 @@
 import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import { Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { arraySelectFilter } from './selectArray';
 import SelectAndLabelComponent from '@shared/components/SelectAndLabelComponent';
 import TableComponent from '@shared/components/TableComponent';
@@ -10,12 +10,15 @@ import SearchComponent from '@shared/components/SearchComponent';
 import { columns } from './columnsTable';
 import data from './fakeData.json';
 import recordPresenter from '@modules/recordStore/presenter';
+import contractAuthorizePresenter from '@modules/contractAuthorize/presenter';
+import { useSingleAsync } from '@shared/hook/useAsync';
 
 const AuthorizationWork = () => {
   const table = useTable();
+  const { id } = useParams();
+  const idChooses = 'id';
   const [search, setSearch] = useState<string>('');
   const navigate = useNavigate();
-  const idChooses = 'id';
   const [filter, setFilterOption] = useState<
     { field: string | undefined; value: string | number | undefined }[]
   >([{ field: 'status', value: 'all' }]);
