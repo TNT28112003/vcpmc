@@ -71,13 +71,13 @@ const AuthorizeContract = () => {
 
     {
       title: 'Hiệu lực hợp đồng',
-      dataIndex: ['expirationDate', 'createDate'],
+      dataIndex: ['expirationDate', 'createAt'],
       render: (text, row) => {
         // thoi gian 3 ngay
         const duration = 259200000;
         const dateNow = new Date();
         const expirationDateNew = new Date(row['expirationDate']);
-        const createAtNew = new Date((row['createDate'] = moment().format()));
+        const createAtNew = new Date((row['createAt'] = moment().format()));
         // kiem tra con thoi han hay khong
         const isTineLeft = dateNow.getTime() - expirationDateNew.getTime();
         // kiem tra hop dong moi tao
@@ -102,8 +102,8 @@ const AuthorizeContract = () => {
     },
     {
       title: 'Ngày tạo',
-      key: 'createDate',
-      dataIndex: 'createDate',
+      key: 'createAt',
+      dataIndex: 'createAt',
       render: createAt => {
         createAt = moment().format('YYYY-MM-DD HH:mm:ss');
         return <>{createAt}</>;

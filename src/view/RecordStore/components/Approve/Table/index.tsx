@@ -29,6 +29,9 @@ const columns: ColumnsType<DataType> = [
   {
     title: 'Số hợp đồng',
     dataIndex: 'numberContract',
+    render: () => {
+      return <>123456</>
+    }
   },
   {
     title: 'Ngày tải',

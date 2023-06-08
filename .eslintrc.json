@@ -7,10 +7,10 @@
   ],
   "plugins": ["react", "@typescript-eslint"],
   "env": {
-    "browser": true,
-    "es6": true,
-    "jest": true,
-    "node": true
+    "browser": false,
+    "es6": false,
+    "jest": false,
+    "node": false
   },
   "settings": {
     "import/resolver": {
@@ -26,7 +26,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": false
     },
     "ecmaVersion": 2020,
     "sourceType": "module",

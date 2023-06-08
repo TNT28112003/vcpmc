@@ -1,38 +1,42 @@
-import { RootState } from '@modules';
 import ButtonForm from '@shared/components/ButtonForm';
 import MainTitleComponent from '@shared/components/MainTitleComponent';
 import { useAltaIntl } from '@shared/hook/useTranslate';
-import { Col, Form, Input, Row } from 'antd';
+import { Col, Form, Input, Row, notification } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import AvatarUser from './components/AvatarUser';
 import ModalChangePassWord from './components/ModalChangePassWord';
 import './style.scss';
 import RightMenu, { IArrayAction } from '@layout/RightMenu';
 import authenticationPresenter from '@modules/authentication/presenter';
 import { useSingleAsync } from '@hook/useAsync';
-import { DocumentData, QuerySnapshot, collection, onSnapshot } from 'firebase/firestore';
-import { FirebaseConfig } from 'src/firebase/firebase.config';
+import { auth } from 'src/firebase/firebase.config';
+import UserEntity from '@modules/authentication/entity';
 
 const Profile = () => {
-  const db = FirebaseConfig.getInstance().fbDB;
   const [form] = Form.useForm();
   const { formatMessage } = useAltaIntl();
   const [isDisableForm, setIsDisableForm] = useState(true);
-  const { user } = useSelector((state: RootState) => state.profile);
   const [isVisible, setIsVisible] = useState(false);
-
-  interface UserType {
-    id?: string;
-    firstName?: string;
-    lastName?: string;
-    // date: string;
-    phone?: string;
-    email?: string;
-    displayName?: string;
-    role?: string;
-  }
+  const [user, setUser] = useState<UserEntity>();
+  const id = auth.currentUser?.uid;
+  const chooseFile = (file: any) => {
+    form.setFieldsValue({ avatar: file });
+  };
+  const [api, contextHolder] = notification.useNotification();
+  const { getProfile, updateProfile } = authenticationPresenter;
+  const getSingleUser = useSingleAsync(getProfile);
+  const changeNewUser = useSingleAsync(updateProfile);
+  const [userDataEdit, setUserDataEdit] = useState({
+    uid: '',
+    firstName: '',
+    lastName: '',
+    date: '',
+    phone: '',
+    email: '',
+    displayName: '',
+    role: '',
+  });
 
   const { logout } = authenticationPresenter;
   const logoutCurrentAuth = useSingleAsync(logout);
@@ -59,148 +63,176 @@ const Profile = () => {
     },
   ];
 
-  const [userProfile, setUserProfile] = useState<UserType[]>([]);
-
-  console.log('====================================');
-  console.log(user);
-  console.log('====================================');
-
-  useEffect(() => {
-    if (user != null) {
-      setIsDisableForm(true);
-      form.setFieldsValue(user);
-    }
-  }, [form, user]);
-
-  const chooseFile = (file: any) => {
-    form.setFieldsValue({ avatar: file });
+  const successNotification = (description: string) => {
+    api.success({
+      message: 'SUCESS',
+      description: description,
+      placement: 'top',
+    });
   };
 
-  const onUpdateProfile = () => {};
+  const errorNotification = (description: string) => {
+    api.error({
+      message: 'ERROR',
+      description: description,
+      placement: 'top',
+    });
+  };
 
-  // useEffect(
-  //   () =>
-  //     onSnapshot(collection(db, 'users'), (snapshot: QuerySnapshot<DocumentData>) => {
-  //       setUserProfile(
-  //         snapshot.docs.map(doc => {
-  //           return {
-  //             id: doc.id,
-  //             ...doc.data(),
-  //           };
-  //         }),
-  //       );
-  //     }),
-  //   [],
-  // );
+  useEffect(() => {
+    getSingleUser
+      .execute(id)
+      .then(response => {
+        setUser(response.data);
+      })
+      .catch((err: any) => {
+        errorNotification(err.message);
+      });
+  }, []);
 
-  // console.log('====================================');
-  // console.log(userProfile);
-  // console.log('====================================');
+  const handleEditUser = () => {
+    changeNewUser
+      .execute(id, userDataEdit)
+      .then(response => {
+        if (response.status) {
+          successNotification('Cập nhật thành công');
+        }
+      })
+      .catch(err => {
+        errorNotification(err.message);
+      });
+  };
 
   return (
     <div className="profile-page">
+      {contextHolder}
       <div className="mb-[20px]">
         <MainTitleComponent title="customer.information" />
       </div>
       <div className="main-component">
-        <div className="profile-user__box">
-          <Form
-            className="main-form"
-            name="userProfileForm"
-            initialValues={user}
-            layout="vertical"
-            requiredMark={false}
-            form={form}
-            onFinish={onUpdateProfile}
-            onResetCapture={() => {
-              setIsDisableForm(true);
-            }}
-            id="userProfileForm"
-            disabled={isDisableForm}
-          >
-            <Row className="profile-form__box">
-              <Col span={7}>
-                <div className="profile-avatar">
-                  <AvatarUser chooseFile={chooseFile} disabled={isDisableForm} />
-                  <br />
-                  <div className="text-center">
-                    <p className="block text-white text-[20px] font-semibold leading-[0.2%]">
-                      {userProfile[0]?.firstName + ' ' + userProfile[0]?.lastName}
-                    </p>
-                  </div>
+        <div className="profile-user__box pb-[30px]">
+          <Row className="profile-form__box">
+            <Col span={7}>
+              <div className="profile-avatar">
+                <AvatarUser chooseFile={chooseFile} disabled={isDisableForm} />
+                <br />
+                <div className="text-center">
+                  <p className="block text-white text-[20px] font-semibold leading-[0.2%]">
+                    {user?.firstName + ' ' + user?.lastName}
+                  </p>
                 </div>
-              </Col>
-              <Col span={10}>
-                <div className="main-form">
-                  <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                      <Form.Item
-                        label={formatMessage('Họ')}
-                        name="firstName"
-                        rules={[{ required: true }]}
-                      >
-                        <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        label={formatMessage('Tên')}
-                        name="lastName"
-                        rules={[{ required: true }]}
-                      >
-                        <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                  <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                      <Form.Item
-                        label={formatMessage('Ngày sinh')}
-                        name="DoB"
-                        rules={[{ required: true }]}
-                      >
-                        <Input
-                          placeholder={formatMessage('users.fullName')}
-                          value={userProfile[0]?.firstName}
-                          maxLength={256}
-                        />
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item
-                        label={formatMessage('Số điện thoại')}
-                        name="phone"
-                        rules={[{ required: true }]}
-                      >
-                        <Input
-                          placeholder={formatMessage('users.fullName')}
-                          value={userProfile[0]?.displayName}
-                          maxLength={256}
-                        />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                  <Form.Item label={formatMessage('users.email')} name="email">
-                    <Input placeholder={formatMessage('users.email')} maxLength={256} />
-                  </Form.Item>
-                  <Form.Item label={formatMessage('Tên đăng nhập')} name="displayName">
-                    <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
-                  </Form.Item>
-                  <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                      <Form.Item
-                        label={formatMessage('Phân quyền')}
-                        name="role"
-                        rules={[{ required: true }]}
-                      >
-                        <Input placeholder={formatMessage('users.fullName')} maxLength={256} />
-                      </Form.Item>
-                    </Col>
-                  </Row>
+              </div>
+            </Col>
+            <Col span={10}>
+              <div className="main-form">
+                <Row gutter={[16, 16]}>
+                  <Col span={12}>
+                    <div className="mt-[20px] mb-[12px]">
+                      <h3 className="text-white font-semibold">
+                        Họ: <span className="text-[#FF4747]">*</span>
+                      </h3>
+                    </div>
+                    <Input
+                      disabled={isDisableForm}
+                      placeholder={formatMessage('users.fullName')}
+                      maxLength={256}
+                      value={user?.firstName}
+                      onChange={event =>
+                        setUserDataEdit(prev => ({ ...prev, firstName: event.target.value }))
+                      }
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <div className="mt-[20px] mb-[12px]">
+                      <h3 className="text-white font-semibold">
+                        Tên: <span className="text-[#FF4747]">*</span>
+                      </h3>
+                    </div>
+                    <Input
+                      disabled={isDisableForm}
+                      placeholder={formatMessage('users.fullName')}
+                      maxLength={256}
+                      value={user?.lastName}
+                      onChange={event =>
+                        setUserDataEdit(prev => ({ ...prev, lastName: event.target.value }))
+                      }
+                    />
+                  </Col>
+                </Row>
+                <Row gutter={[16, 16]}>
+                  <Col span={12}>
+                    <div className="mt-[20px] mb-[12px]">
+                      <h3 className="text-white font-semibold">
+                        Ngày sinh: <span className="text-[#FF4747]">*</span>
+                      </h3>
+                    </div>
+                    <Input
+                      disabled={isDisableForm}
+                      placeholder={formatMessage('users.fullName')}
+                      maxLength={256}
+                      value={user?.date}
+                      onChange={event =>
+                        setUserDataEdit(prev => ({ ...prev, date: event.target.value }))
+                      }
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <div className="mt-[20px] mb-[12px]">
+                      <h3 className="text-white font-semibold">
+                        Số điện thoại: <span className="text-[#FF4747]">*</span>
+                      </h3>
+                    </div>
+                    <Input
+                      disabled={isDisableForm}
+                      placeholder={formatMessage('users.fullName')}
+                      maxLength={256}
+                      value={user?.phone}
+                      onChange={event =>
+                        setUserDataEdit(prev => ({ ...prev, phone: event.target.value }))
+                      }
+                    />
+                  </Col>
+                </Row>
+                <div className="mt-[20px] mb-[12px]">
+                  <h3 className="text-white font-semibold">
+                    Email: <span className="text-[#FF4747]">*</span>
+                  </h3>
                 </div>
-              </Col>
-            </Row>
-          </Form>
+                <Input
+                  disabled={true}
+                  placeholder={formatMessage('users.email')}
+                  maxLength={256}
+                  value={user?.email}
+                />
+                <div className="mt-[20px] mb-[12px]">
+                  <h3 className="text-white font-semibold">
+                    Tên đăng nhập: <span className="text-[#FF4747]">*</span>
+                  </h3>
+                </div>
+                <Input
+                  disabled={true}
+                  placeholder={formatMessage('users.fullName')}
+                  maxLength={256}
+                  value={user?.displayName}
+                />
+                <Row gutter={[16, 16]}>
+                  <Col span={12}>
+                    <div className="mt-[20px] mb-[12px]">
+                      <h3 className="text-white font-semibold">
+                        Phân quyền: <span className="text-[#FF4747]">*</span>
+                      </h3>
+                    </div>
+                    <Input
+                      disabled={true}
+                      placeholder={formatMessage('users.fullName')}
+                      maxLength={256}
+                      value={user?.role}
+                    />
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
         </div>
         {isDisableForm == false && (
           <ButtonForm

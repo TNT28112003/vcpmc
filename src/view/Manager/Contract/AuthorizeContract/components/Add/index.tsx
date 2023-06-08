@@ -59,7 +59,7 @@ const AddAuthorize = () => {
     newContract['expirationDate'] = expirationDate;
     newContract['DoB'] = DoB;
     newContract['dateRange'] = dateRange;
-    newContract['createDate'] = dateNow;
+    newContract['createAt'] = dateNow;
     newContractAuthorize
       .execute(newContract)
       .then(response => {

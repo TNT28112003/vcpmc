@@ -1,5 +1,9 @@
 import { sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { fbRepositorires } from 'src/firebase/firebase.auth';
+import { changeData, getSingleData } from 'src/firebase/firebase.fbServices';
+import UserEntity from './entity';
+
+const collection = 'users';
 
 const register = (payload: any) => {};
 
@@ -34,9 +38,16 @@ const logout = () => {
 
 const resetPassword = (payload: any) => {};
 
-const getProfile = () => {};
+const getProfile = (documentId: string): Promise<{ data: UserEntity; status: boolean }> => {
+  return getSingleData(collection, documentId);
+};
 
-const updateProfile = (payload: any) => {};
+const updateProfile = (
+  documentId: string,
+  data: Partial<UserEntity>,
+): Promise<{ status: boolean }> => {
+  return changeData(collection, documentId, data);
+};
 
 const updateProfileChangePassword = (payload: any) => {};
 

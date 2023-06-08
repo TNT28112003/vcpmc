@@ -1,17 +1,16 @@
-
 class DeviceEntity {
-
   id: string = '';
-  deviceId: String = '';
+  SKU: string = '';
   deviceName: string = '';
-  deviceType: string = '';
+  label: string = '';
   IPAddress: string = '';
-  signInName: string = '';
+  information: string = '';
+  userName: string = '';
   password: string = '';
-  activeStatus: boolean = true;
-  connectStatus: boolean = true;
-  serviceUse: string = '';
-  key: number = 0;
+  note: string = '';
+  warrantyPeriod: string = '';
+  location: string = '';
+  status: number = 1;
 
   constructor(device?: Partial<DeviceEntity>) {
     if (!device) {
@@ -20,7 +19,5 @@ class DeviceEntity {
     Object.assign(this, device);
   }
 }
-
-
 
 export default DeviceEntity;

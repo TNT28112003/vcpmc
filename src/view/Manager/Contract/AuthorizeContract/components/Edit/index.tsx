@@ -149,8 +149,7 @@ const EditAuthorize = () => {
               <DatePicker
                 name="effectiveDate"
                 className="!w-[210px]"
-                format={dateFormat}
-                value={dayjs(`${contractAuthorize.effectiveDate}`, dateFormat)}
+                value={dayjs(`${contractAuthorize.effectiveDate}`)}
                 onChange={(date, dateString) => {
                   setContractAuthorize(prev => ({ ...prev, effectiveDate: dateString }));
                 }}
@@ -163,8 +162,7 @@ const EditAuthorize = () => {
               <DatePicker
                 name="expirationDate"
                 className="!w-[210px]"
-                format={dateFormat}
-                value={dayjs(`${contractAuthorize.expirationDate}`, dateFormat)}
+                value={dayjs(`${contractAuthorize.expirationDate}`)}
                 onChange={(date, dateString) => {
                   setContractAuthorize(prev => ({ ...prev, expirationDate: dateString }));
                 }}
@@ -266,8 +264,7 @@ const EditAuthorize = () => {
               <DatePicker
                 name="DoB"
                 className="!w-[210px]"
-                value={dayjs(`${contractAuthorize.DoB}`, dateFormat)}
-                format={dateFormat}
+                value={dayjs(`${contractAuthorize.DoB}`)}
                 onChange={(date, dateString) => {
                   setContractAuthorize(prev => ({ ...prev, DoB: dateString }));
                 }}
@@ -316,8 +313,7 @@ const EditAuthorize = () => {
               <DatePicker
                 name="dateRange"
                 className="!w-[210px]"
-                format={dateFormat}
-                value={dayjs(`${contractAuthorize.dateRange}`, dateFormat)}
+                value={dayjs(`${contractAuthorize.dateRange}`)}
                 onChange={(date, dateString) => {
                   setContractAuthorize(prev => ({ ...prev, dateRange: dateString }));
                 }}

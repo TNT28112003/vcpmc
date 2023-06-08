@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
 import data from './fakeData.json';
 import MainTitleComponent from '@shared/components/MainTitleComponent';
@@ -12,22 +12,35 @@ import { ColumnsType } from 'antd/es/table';
 import TableComponent from '@shared/components/TableComponent';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
+import devicePresenter from '@modules/device/presenter';
+import useTable from '@shared/components/TableComponent/hook';
+import CircleLabel from '@shared/components/CircleLabel';
 
 interface DataType {
   key: React.Key;
   id: string;
-  name: string;
+  SKU: String;
+  deviceName: string;
+  label: string;
+  IPAddress: string;
+  information: string;
+  activeStatus: boolean;
+  userName: string;
+  password: string;
+  note: string;
+  warrantyPeriod: string;
+  location: string;
   status: number;
-  address: string;
-  contractTerm: string;
-  macAddress: string;
-  memory: string;
 }
 
 const Device: React.FC = () => {
+  const table = useTable();
   const navigate = useNavigate();
+  const [search, setSearch] = useState<string>('');
   const [isVisible, setIsVisible] = useState(false);
-
+  const [filter, setFilterOption] = useState<
+    { field: string | undefined; value: string | number | undefined }[]
+  >([{ field: 'status', value: 'all' }]);
   const arrayAction: IArrayAction[] = [
     {
       iconType: 'add',
@@ -52,27 +65,34 @@ const Device: React.FC = () => {
   const columns: ColumnsType<DataType> = [
     {
       title: 'Tên thiết bị',
-      dataIndex: 'name',
+      dataIndex: 'deviceName',
     },
     {
       title: 'Trạng thái',
       dataIndex: 'status',
+      render: status => {
+        return status == 1 ? (
+          <CircleLabel text={'Đang kích hoạt | Đang hoạt động'} colorCode="green" />
+        ) : (
+          <CircleLabel text={'Ngừng kích hoạt'} colorCode="red" />
+        );
+      },
     },
     {
       title: 'Địa điểm',
-      dataIndex: 'address',
+      dataIndex: 'location',
     },
     {
       title: 'Hạn hợp đồng',
-      dataIndex: 'contractTerm',
+      dataIndex: 'warrantyPeriod',
     },
     {
       title: 'MAC Addresss',
-      dataIndex: 'macAddress',
+      dataIndex: 'IPAddress',
     },
     {
       title: 'Memory',
-      dataIndex: 'memory',
+      dataIndex: 'information',
     },
     {
       title: 'common.empty',
@@ -90,10 +110,35 @@ const Device: React.FC = () => {
     },
   ];
 
+  const handleSearch = (searchKey: string) => {
+    setSearch(searchKey);
+  };
+
+  const onChangeSelectStatus = (name: string | undefined) => (status: any) => {
+    if (name && status) {
+      let filterTemp = filter;
+      let checkExist = filter.findIndex(obj => obj.field === name);
+
+      if (checkExist >= 0) {
+        filterTemp[checkExist].value = status;
+      } else {
+        filter.push({ field: name, value: status });
+      }
+
+      setFilterOption(filterTemp.map(fil => fil));
+    }
+  };
+
+  useEffect(() => {
+    table.fetchData({ option: { search: search, filter: filter } });
+  }, [search, filter, table]);
+
   // rowSelection object indicates the need for row selection
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      console.log('====================================');
+      console.log(selectedRows);
+      console.log('====================================');
     },
   };
 
@@ -106,7 +151,7 @@ const Device: React.FC = () => {
             <div className="flex">
               {arraySelectFilter.map(item => (
                 <SelectNoneLableComponent
-                  // onChange={onChangeSelectStatus(item.keyLabel)}
+                  onChange={onChangeSelectStatus(item.keyLabel)}
                   key={item.name}
                   className={`margin-select ${item.keyLabel}`}
                   dataString={item.dataString}
@@ -114,18 +159,20 @@ const Device: React.FC = () => {
               ))}
             </div>
             <SearchComponent
-              // onSearch={handleSearch}
+              onSearch={handleSearch}
               placeholder={'Tìm thiết bị theo tên, SKU, địa điểm, địa chỉ Mac'}
               classNames="mb-0 search-table !w-[500px]"
             />
           </div>
           <div className="pb-[40px]">
             <TableComponent
+              apiServices={devicePresenter.getDevices}
               rowSelection={{
                 ...rowSelection,
               }}
+              register={table}
               columns={columns}
-              dataSource={data}
+              disableFirstCallApi={true}
             />
           </div>
         </Col>
